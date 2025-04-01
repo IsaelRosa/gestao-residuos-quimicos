@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Armazenamento de Reagentes Químicos</title>
+    <!-- Mesmo estilo da página anterior -->
+    <style>
+        /* Manter o mesmo estilo da página gestao.html */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .logo img {
+            height: 60px;
+            margin-right: 15px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .emergency {
+            background-color: var(--accent-color);
+        }
+        
+        .emergency:hover {
+            background-color: #c0392b;
+        }
+        
+        .content-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .content-section:hover {
+            transform: translateY(-5px);
+        }
+        
+        .content-section h2 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+        }
+        
+        .content-section h3 {
+            color: var(--primary-color);
+            margin: 1.5rem 0 0.5rem;
+        }
+        
+        .content-section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1rem 0;
+            display: block;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .steps {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .steps li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .steps li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+        }
+        
+        .info-box {
+            background-color: #e7f5ff;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .info-box:hover {
+            background-color: #d0ebff;
+        }
+        
+        .warning-box {
+            background-color: #fff3bf;
+            border-left: 4px solid #ffd43b;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .danger-box {
+            background-color: #ffc9c9;
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        
+        .compatibility-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        
+        .compatibility-table th, 
+        .compatibility-table td {
+            border: 1px solid #ddd;
+            padding: 0.8rem;
+            text-align: center;
+        }
+        
+        .compatibility-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .compatible {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .incompatible {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .conditional {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .storage-types {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .storage-card {
+            flex: 1 1 300px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .storage-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .storage-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .storage-content {
+            padding: 1rem;
+        }
+        
+        .storage-content h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .floating-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--accent-color);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        
+        .floating-btn:hover {
+            transform: scale(1.1);
+            background-color: #c0392b;
+        }
+        
+        @media (max-width: 768px) {
+            .storage-card {
+                flex: 1 1 100%;
+            }
+            
+            .floating-btn {
+                bottom: 1rem;
+                right: 1rem;
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+<!-- Barra de Acessibilidade -->
+<div class="accessibility-bar">
+    <button id="increase-font" title="Aumentar fonte" aria-label="Aumentar tamanho da fonte">A+</button>
+    <button id="decrease-font" title="Diminuir fonte" aria-label="Diminuir tamanho da fonte">A-</button>
+    <button id="high-contrast" title="Alto contraste" aria-label="Alternar modo de alto contraste">Alto Contraste</button>
+    <button id="screen-reader" title="Ler conteúdo" aria-label="Ativar leitor de tela">Leitor de Tela</button>
+    <button id="skip-content" title="Pular para conteúdo" aria-label="Pular para conteúdo principal">Pular para Conteúdo</button>
+</div>
+
+<style>
+    /* Estilos da barra de acessibilidade */
+    .accessibility-bar {
+        background-color: #333;
+        padding: 0.5rem;
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.5rem;
+    }
+    
+    .accessibility-bar button {
+        background-color: #444;
+        color: white;
+        border: none;
+        padding: 0.3rem 0.6rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.9rem;
+    }
+    
+    .accessibility-bar button:hover {
+        background-color: #555;
+    }
+    
+    /* Estilos para alto contraste */
+    .high-contrast {
+        background-color: #000 !important;
+        color: #fff !important;
+    }
+    
+    .high-contrast a {
+        color: #ffff00 !important;
+    }
+    
+    .high-contrast .content-section {
+        border: 2px solid #fff !important;
+    }
+</style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="https://cdn-icons-png.flaticon.com/512/3063/3063187.png" alt="Ícone de Química">
+            <h1>Armazenamento de Reagentes Químicos</h1>
+        </div>
+        <p>Guia completo para armazenar produtos químicos de forma segura</p>
+    </header>
+    
+    <div class="container">
+        <a href="index.html" class="btn back-btn">← Voltar para a página principal</a>
+        
+        <div class="content-section">
+            <h2>Princípios Básicos de Armazenamento</h2>
+            <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Armazenamento de produtos químicos">
+            
+            <div class="info-box">
+                <p>O armazenamento adequado de reagentes químicos previne acidentes, preserva a qualidade dos produtos e facilita o gerenciamento do estoque.</p>
+            </div>
+            
+            <h3>Regras Gerais</h3>
+            <ul class="steps">
+                <li>Armazene em local fresco, seco e bem ventilado</li>
+                <li>Mantenha longe de fontes de calor e ignição</li>
+                <li>Proteja da luz solar direta quando necessário</li>
+                <li>Armazene em recipientes adequados e devidamente identificados</li>
+                <li>Mantenha as embalagens originais sempre que possível</li>
+                <li>Limite as quantidades armazenadas ao mínimo necessário</li>
+            </ul>
+            
+            <div class="warning-box">
+                <p><strong>Atenção:</strong> Nunca armazene produtos químicos em recipientes de alimentos ou bebidas, mesmo que limpos.</p>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h2>Compatibilidade Química</h2>
+            <p>Armazene produtos químicos de acordo com suas classes de compatibilidade. A tabela abaixo mostra as principais classes e suas compatibilidades:</p>
+            
+            <table class="compatibility-table">
+                <tr>
+                    <th>Classe</th>
+                    <th>Ácidos Minerais</th>
+                    <th>Ácidos Orgânicos</th>
+                    <th>Bases</th>
+                    <th>Oxidantes</th>
+                    <th>Redutores</th>
+                    <th>Solventes Orgânicos</th>
+                </tr>
+                <tr>
+                    <td>Ácidos Minerais</td>
+                    <td class="compatible">C</td>
+                    <td class="conditional">C*</td>
+                    <td class="incompatible">I</td>
+                    <td class="incompatible">I</td>
+                    <td class="conditional">C*</td>
+                    <td class="incompatible">I</td>
+                </tr>
+                <tr>
+                    <td>Ácidos Orgânicos</td>
+                    <td class="conditional">C*</td>
+                    <td class="compatible">C</td>
+                    <td class="incompatible">I</td>
+                    <td class="incompatible">I</td>
+                    <td class="compatible">C</td>
+                    <td class="conditional">C*</td>
+                </tr>
+                <tr>
+                    <td>Bases</td>
+                    <td class="incompatible">I</td>
+                    <td class="incompatible">I</td>
+                    <td class="compatible">C</td>
+                    <td class="incompatible">I</td>
+                    <td class="compatible">C</td>
+                    <td class="incompatible">I</td>
+                </tr>
+                <tr>
+                    <td>Oxidantes</td>
+                    <td class="incompatible">I</td>
+                    <td class="incompatible">I</td>
+                    <td class="incompatible">I</td>
+                    <td class="compatible">C</td>
+                    <td class="incompatible">I</td>
+                    <td class="incompatible">I</td>
+                </tr>
+                <tr>
+                    <td>Redutores</td>
+                    <td class="conditional">C*</td>
+                    <td class="compatible">C</td>
+                    <td class="compatible">C</td>
+                    <td class="incompatible">I</td>
+                    <td class="compatible">C</td>
+                    <td class="compatible">C</td>
+                </tr>
+                <tr>
+                    <td>Solventes Orgânicos</td>
+                    <td class="incompatible">I</td>
+                    <td class="conditional">C*</td>
+                    <td class="incompatible">I</td>
+                    <td class="incompatible">I</td>
+                    <td class="compatible">C</td>
+                    <td class="compatible">C</td>
+                </tr>
+            </table>
+            
+            <div class="info-box">
+                <p><strong>Legenda:</strong> C = Compatível | I = Incompatível | C* = Compatível com ressalvas (consultar FISPQ)</p>
+            </div>
+            
+            <h3>Grupos de Incompatibilidade</h3>
+            <ul class="steps">
+                <li><strong>Nunca armazene juntos:</strong> Ácidos com bases, oxidantes com redutores, cianetos com ácidos</li>
+                <li><strong>Armazene separadamente:</strong> Solventes inflamáveis de outros produtos químicos</li>
+                <li><strong>Armazene em locais específicos:</strong> Tóxicos, carcinogênicos e altamente reativos</li>
+            </ul>
+        </div>
+        
+        <div class="content-section">
+            <h2>Sistemas de Armazenamento</h2>
+            <p>Escolha o sistema de armazenamento adequado para cada tipo de produto químico:</p>
+            
+            <div class="storage-types">
+                <div class="storage-card">
+                    <img src="https://images.unsplash.com/photo-1581094271901-8022df4466f9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Armário de segurança">
+                    <div class="storage-content">
+                        <h4>Armários de Segurança</h4>
+                        <ul>
+                            <li>Para ácidos corrosivos</li>
+                            <li>Para bases corrosivas</li>
+                            <li>Para solventes inflamáveis</li>
+                            <li>Com prateleiras contendo bandejas de contenção</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="storage-card">
+                    <img src="https://images.unsplash.com/photo-1581093057305-2551ae6ca07e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Geladeira à prova de explosão">
+                    <div class="storage-content">
+                        <h4>Geladeiras à Prova de Explosão</h4>
+                        <ul>
+                            <li>Para produtos que requerem refrigeração</li>
+                            <li>Especialmente para solventes inflamáveis</li>
+                            <li>Nunca use geladeiras comuns</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="storage-card">
+                    <img src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Sala com exaustão">
+                    <div class="storage-content">
+                        <h4>Salas com Exaustão</h4>
+                        <ul>
+                            <li>Para produtos voláteis e tóxicos</li>
+                            <li>Com ventilação adequada</li>
+                            <li>Com prateleiras resistentes</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h2>Verificador de Compatibilidade</h2>
+            <div class="info-box">
+                <p>Use esta ferramenta para verificar se dois produtos químicos podem ser armazenados próximos:</p>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="produto1">Produto Químico 1</label>
+                    <input type="text" id="produto1" placeholder="Digite o nome do produto">
+                </div>
+                
+                <div class="form-group">
+                    <label for="produto2">Produto Químico 2</label>
+                    <input type="text" id="produto2" placeholder="Digite o nome do produto">
+                </div>
+            </div>
+            
+            <button class="btn" onclick="verificarCompatibilidade()">Verificar Compatibilidade</button>
+            
+            <div id="resultado-compatibilidade" style="margin-top: 1rem; padding: 1rem; display: none;">
+                <h4>Resultado:</h4>
+                <p id="texto-resultado"></p>
+            </div>
+        </div>
+    </div>
+    
+    <a href="telefones.html" class="floating-btn">!</a>
+    
+    <footer>
+        <p>© 2023 Sistema de Gestão de Resíduos Químicos | Desenvolvido para segurança laboratorial</p>
+        <p>Em caso de emergência, ligue: <strong>192 (SAMU) | 193 (Bombeiros)</strong></p>
+    </footer>
+    
+    <script>
+        // Simulador de compatibilidade
+        const compatibilidadeDB = {
+            "ácido sulfúrico": {classe: "ácidos minerais", incompativel: ["bases", "oxidantes", "solventes orgânicos"]},
+            "hidróxido de sódio": {classe: "bases", incompativel: ["ácidos minerais", "ácidos orgânicos", "oxidantes"]},
+            "acetona": {classe: "solventes orgânicos", incompativel: ["ácidos minerais", "oxidantes"]},
+            "peróxido de hidrogênio": {classe: "oxidantes", incompativel: ["ácidos minerais", "ácidos orgânicos", "bases", "solventes orgânicos", "redutores"]},
+            "ácido acético": {classe: "ácidos orgânicos", incompativel: ["bases", "oxidantes"]},
+            "sulfito de sódio": {classe: "redutores", incompativel: ["oxidantes"]}
+        };
+        
+        function verificarCompatibilidade() {
+            const produto1 = document.getElementById("produto1").value.toLowerCase();
+            const produto2 = document.getElementById("produto2").value.toLowerCase();
+            const resultadoDiv = document.getElementById("resultado-compatibilidade");
+            const textoResultado = document.getElementById("texto-resultado");
+            
+            // Verificar se os produtos estão na base de dados
+            if (!compatibilidadeDB[produto1] || !compatibilidadeDB[produto2]) {
+                textoResultado.innerHTML = "Um ou ambos os produtos não foram reconhecidos. Verifique a grafia ou consulte a FISPQ dos produtos.";
+                resultadoDiv.style.display = "block";
+                return;
+            }
+            
+            const classe1 = compatibilidadeDB[produto1].classe;
+            const classe2 = compatibilidadeDB[produto2].classe;
+            
+            // Verificar incompatibilidade
+            if (compatibilidadeDB[produto1].incompativel.includes(classe2) || 
+                compatibilidadeDB[produto2].incompativel.includes(classe1)) {
+                textoResultado.innerHTML = `<strong>INCOMPATÍVEIS:</strong> ${produto1} (${classe1}) e ${produto2} (${classe2}) não devem ser armazenados próximos. Mantenha em armários separados.`;
+                resultadoDiv.style.backgroundColor = "#f8d7da";
+            } else {
+                textoResultado.innerHTML = `<strong>COMPATÍVEIS:</strong> ${produto1} (${classe1}) e ${produto2} (${classe2}) podem ser armazenados no mesmo local, desde que em recipientes separados e adequados.`;
+                resultadoDiv.style.backgroundColor = "#d4edda";
+            }
+            
+            resultadoDiv.style.display = "block";
+        }
+        
+        // Tooltip para o botão flutuante
+        const floatingBtn = document.querySelector(".floating-btn");
+        floatingBtn.addEventListener("mouseover", function() {
+            this.setAttribute("title", "Emergência - Telefones Úteis");
+        });
+        
+        // Auto-complete para os campos de produto
+        document.getElementById("produto1").addEventListener("input", function() {
+            showSuggestions(this, "suggestions1");
+        });
+        
+        document.getElementById("produto2").addEventListener("input", function() {
+            showSuggestions(this, "suggestions2");
+        });
+        
+        function showSuggestions(input, suggestionsId) {
+            const val = input.value.toLowerCase();
+            let suggestions = document.getElementById(suggestionsId);
+            
+            // Remove sugestões anteriores se existirem
+            if (suggestions) {
+                suggestions.remove();
+            }
+            
+            if (!val) return false;
+            
+            suggestions = document.createElement("div");
+            suggestions.id = suggestionsId;
+            suggestions.style.position = "absolute";
+            suggestions.style.zIndex = "1000";
+            suggestions.style.backgroundColor = "white";
+            suggestions.style.border = "1px solid #ddd";
+            suggestions.style.borderRadius = "0 0 4px 4px";
+            suggestions.style.boxShadow = "0 4px 8px rgba(0,0,0,0.1)";
+            suggestions.style.width = input.offsetWidth + "px";
+            
+            let hasSuggestions = false;
+            
+            for (const produto in compatibilidadeDB) {
+                if (produto.includes(val)) {
+                    const suggestionItem = document.createElement("div");
+                    suggestionItem.style.padding = "0.5rem";
+                    suggestionItem.style.cursor = "pointer";
+                    suggestionItem.textContent = produto;
+                    
+                    suggestionItem.addEventListener("mouseover", function() {
+                        this.style.backgroundColor = "#f0f0f0";
+                    });
+                    
+                    suggestionItem.addEventListener("mouseout", function() {
+                        this.style.backgroundColor = "white";
+                    });
+                    
+                    suggestionItem.addEventListener("click", function() {
+                        input.value = produto;
+                        suggestions.remove();
+                    });
+                    
+                    suggestions.appendChild(suggestionItem);
+                    hasSuggestions = true;
+                }
+            }
+            
+            if (hasSuggestions) {
+                input.parentNode.appendChild(suggestions);
+            }
+        }
+    </script>
+<!-- Leitor de Tela -->
+<div id="screen-reader-panel" style="display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: #333; color: white; padding: 1rem; z-index: 1000;">
+    <div style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto;">
+        <div id="reader-text" style="flex-grow: 1; margin-right: 1rem;"></div>
+        <div>
+            <button id="reader-play" style="background: #4CAF50; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">▶</button>
+            <button id="reader-pause" style="background: #f39c12; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">⏸</button>
+            <button id="reader-stop" style="background: #e74c3c; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">⏹</button>
+            <button id="reader-close" style="background: #555; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">Fechar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Funções de acessibilidade
+    document.addEventListener('DOMContentLoaded', function() {
+        // Controle de tamanho da fonte
+        document.getElementById('increase-font').addEventListener('click', function() {
+            const currentSize = parseFloat(getComputedStyle(document.body).fontSize);
+            document.body.style.fontSize = (currentSize + 1) + 'px';
+        });
+        
+        document.getElementById('decrease-font').addEventListener('click', function() {
+            const currentSize = parseFloat(getComputedStyle(document.body).fontSize);
+            if (currentSize > 12) {
+                document.body.style.fontSize = (currentSize - 1) + 'px';
+            }
+        });
+        
+        // Modo alto contraste
+        document.getElementById('high-contrast').addEventListener('click', function() {
+            document.body.classList.toggle('high-contrast');
+            localStorage.setItem('highContrast', document.body.classList.contains('high-contrast'));
+        });
+        
+        // Verificar preferência salva
+        if (localStorage.getItem('highContrast') === 'true') {
+            document.body.classList.add('high-contrast');
+        }
+        
+        // Pular para conteúdo
+        document.getElementById('skip-content').addEventListener('click', function() {
+            const mainContent = document.querySelector('.container');
+            mainContent.tabIndex = -1;
+            mainContent.focus();
+        });
+        
+        // Leitor de tela
+        const readerPanel = document.getElementById('screen-reader-panel');
+        const readerText = document.getElementById('reader-text');
+        let speechSynthesis = window.speechSynthesis;
+        let currentUtterance = null;
+        
+        document.getElementById('screen-reader').addEventListener('click', function() {
+            readerPanel.style.display = 'block';
+            readPageContent();
+        });
+        
+        document.getElementById('reader-close').addEventListener('click', function() {
+            readerPanel.style.display = 'none';
+            stopReading();
+        });
+        
+        document.getElementById('reader-play').addEventListener('click', readPageContent);
+        document.getElementById('reader-pause').addEventListener('click', pauseReading);
+        document.getElementById('reader-stop').addEventListener('click', stopReading);
+        
+        function readPageContent() {
+            // Pausa se já estiver lendo
+            if (speechSynthesis.speaking) {
+                speechSynthesis.pause();
+            }
+            
+            // Obtém todo o texto principal da página
+            const mainContent = document.querySelector('.container').innerText;
+            readerText.textContent = mainContent;
+            
+            // Configura a fala
+            currentUtterance = new SpeechSynthesisUtterance(mainContent);
+            currentUtterance.lang = 'pt-BR';
+            currentUtterance.rate = 1;
+            currentUtterance.pitch = 1;
+            
+            // Evento quando terminar de ler
+            currentUtterance.onend = function() {
+                readerText.textContent = "Leitura concluída.";
+            };
+            
+            // Inicia a leitura
+            speechSynthesis.speak(currentUtterance);
+        }
+        
+        function pauseReading() {
+            if (speechSynthesis.speaking) {
+                speechSynthesis.pause();
+                readerText.textContent = "Leitura pausada.";
+            }
+        }
+        
+        function stopReading() {
+            speechSynthesis.cancel();
+            readerText.textContent = "Leitura interrompida.";
+        }
+    });
+</script>
+</body>
+</html>

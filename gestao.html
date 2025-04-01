@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Resíduos Químicos</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .logo img {
+            height: 60px;
+            margin-right: 15px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .emergency {
+            background-color: var(--accent-color);
+        }
+        
+        .emergency:hover {
+            background-color: #c0392b;
+        }
+        
+        .content-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .content-section:hover {
+            transform: translateY(-5px);
+        }
+        
+        .content-section h2 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+        }
+        
+        .content-section h3 {
+            color: var(--primary-color);
+            margin: 1.5rem 0 0.5rem;
+        }
+        
+        .content-section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1rem 0;
+            display: block;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .steps {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .steps li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .steps li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+        }
+        
+        .info-box {
+            background-color: #e7f5ff;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .info-box:hover {
+            background-color: #d0ebff;
+        }
+        
+        .warning-box {
+            background-color: #fff3bf;
+            border-left: 4px solid #ffd43b;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .danger-box {
+            background-color: #ffc9c9;
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        
+        .tab-container {
+            margin: 1rem 0;
+        }
+        
+        .tab-buttons {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 1rem;
+        }
+        
+        .tab-btn {
+            padding: 0.8rem 1.5rem;
+            background: #eee;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        .tab-btn.active {
+            background: var(--secondary-color);
+            color: white;
+        }
+        
+        .tab-btn:hover:not(.active) {
+            background: #ddd;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 1rem;
+            background: white;
+            border-radius: 0 0 8px 8px;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .accordion {
+            margin: 1rem 0;
+        }
+        
+        .accordion-btn {
+            width: 100%;
+            padding: 1rem;
+            text-align: left;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-bottom: 0.5rem;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .accordion-btn:hover {
+            background-color: #1a252f;
+        }
+        
+        .accordion-btn:after {
+            content: '+';
+            font-size: 1.2rem;
+        }
+        
+        .accordion-btn.active:after {
+            content: '-';
+        }
+        
+        .accordion-content {
+            padding: 0 1rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background-color: white;
+            border-radius: 0 0 4px 4px;
+            margin-bottom: 1rem;
+        }
+        
+        .accordion-content.show {
+            padding: 1rem;
+            max-height: 1000px;
+            border: 1px solid #ddd;
+            border-top: none;
+        }
+        
+        .floating-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--accent-color);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        
+        .floating-btn:hover {
+            transform: scale(1.1);
+            background-color: #c0392b;
+        }
+        
+        @media (max-width: 768px) {
+            .tab-buttons {
+                flex-direction: column;
+            }
+            
+            .tab-btn {
+                border-radius: 0;
+            }
+            
+            .floating-btn {
+                bottom: 1rem;
+                right: 1rem;
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+<!-- Barra de Acessibilidade -->
+<div class="accessibility-bar">
+    <button id="increase-font" title="Aumentar fonte" aria-label="Aumentar tamanho da fonte">A+</button>
+    <button id="decrease-font" title="Diminuir fonte" aria-label="Diminuir tamanho da fonte">A-</button>
+    <button id="high-contrast" title="Alto contraste" aria-label="Alternar modo de alto contraste">Alto Contraste</button>
+    <button id="screen-reader" title="Ler conteúdo" aria-label="Ativar leitor de tela">Leitor de Tela</button>
+    <button id="skip-content" title="Pular para conteúdo" aria-label="Pular para conteúdo principal">Pular para Conteúdo</button>
+</div>
+
+<style>
+    /* Estilos da barra de acessibilidade */
+    .accessibility-bar {
+        background-color: #333;
+        padding: 0.5rem;
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.5rem;
+    }
+    
+    .accessibility-bar button {
+        background-color: #444;
+        color: white;
+        border: none;
+        padding: 0.3rem 0.6rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.9rem;
+    }
+    
+    .accessibility-bar button:hover {
+        background-color: #555;
+    }
+    
+    /* Estilos para alto contraste */
+    .high-contrast {
+        background-color: #000 !important;
+        color: #fff !important;
+    }
+    
+    .high-contrast a {
+        color: #ffff00 !important;
+    }
+    
+    .high-contrast .content-section {
+        border: 2px solid #fff !important;
+    }
+</style>	
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="https://cdn-icons-png.flaticon.com/512/3063/3063187.png" alt="Ícone de Química">
+            <h1>Gestão de Resíduos Químicos</h1>
+        </div>
+        <p>Procedimentos e boas práticas para o gerenciamento adequado</p>
+    </header>
+    
+    <div class="container">
+        <a href="index.html" class="btn back-btn">← Voltar para a página principal</a>
+        
+        <div class="content-section">
+            <h2>Gestão de Resíduos Químicos em Laboratórios</h2>
+            <img src="https://images.unsplash.com/photo-1603126857599-f6e157fa2fe6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Gestão de Resíduos">
+            
+            <div class="info-box">
+                <p>A gestão adequada de resíduos químicos é essencial para garantir a segurança no ambiente de trabalho e a preservação do meio ambiente. Este guia apresenta os procedimentos recomendados.</p>
+            </div>
+            
+            <h3>Fluxograma do Processo</h3>
+            <img src="https://www.ufrgs.br/labcontrol/images/fluxograma-residuos.jpg" alt="Fluxograma de Gestão de Resíduos">
+            
+            <div class="tab-container">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" onclick="openTab(event, 'identificacao')">Identificação</button>
+                    <button class="tab-btn" onclick="openTab(event, 'segregacao')">Segregação</button>
+                    <button class="tab-btn" onclick="openTab(event, 'armazenamento')">Armazenamento</button>
+                    <button class="tab-btn" onclick="openTab(event, 'documentacao')">Documentação</button>
+                </div>
+                
+                <div id="identificacao" class="tab-content active">
+                    <h4>Identificação dos Resíduos</h4>
+                    <ul class="steps">
+                        <li>Classifique o resíduo de acordo com sua natureza química</li>
+                        <li>Identifique os riscos associados (inflamabilidade, toxicidade, corrosividade, etc.)</li>
+                        <li>Verifique a compatibilidade com outros resíduos</li>
+                        <li>Registre no inventário de resíduos do laboratório</li>
+                    </ul>
+                    <div class="warning-box">
+                        <strong>Atenção:</strong> Nunca misture resíduos sem conhecer suas propriedades e compatibilidade.
+                    </div>
+                </div>
+                
+                <div id="segregacao" class="tab-content">
+                    <h4>Segregação dos Resíduos</h4>
+                    <ul class="steps">
+                        <li>Separe os resíduos por compatibilidade química</li>
+                        <li>Use recipientes adequados para cada tipo de resíduo</li>
+                        <li>Identifique claramente cada recipiente com etiqueta padrão</li>
+                        <li>Mantenha resíduos incompatíveis em locais separados</li>
+                    </ul>
+                    <img src="https://www.ufrgs.br/labcontrol/images/segregacao-residuos.jpg" alt="Segregação de Resíduos">
+                </div>
+                
+                <div id="armazenamento" class="tab-content">
+                    <h4>Armazenamento Temporário</h4>
+                    <ul class="steps">
+                        <li>Armazene em local ventilado e protegido da luz solar</li>
+                        <li>Mantenha os recipientes fechados quando não em uso</li>
+                        <li>Limite a quantidade armazenada ao mínimo necessário</li>
+                        <li>Verifique regularmente a integridade dos recipientes</li>
+                    </ul>
+                </div>
+                
+                <div id="documentacao" class="tab-content">
+                    <h4>Documentação e Registros</h4>
+                    <ul class="steps">
+                        <li>Mantenha um registro atualizado de todos os resíduos gerados</li>
+                        <li>Documente datas de geração, quantidades e características</li>
+                        <li>Preencha o Manifesto de Transporte de Resíduos (MTR) quando aplicável</li>
+                        <li>Arquive os certificados de destinação final</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>Boas Práticas</h3>
+            <div class="accordion">
+                <button class="accordion-btn">Minimização de Resíduos</button>
+                <div class="accordion-content">
+                    <ul class="steps">
+                        <li>Planeje experimentos para gerar a menor quantidade possível de resíduos</li>
+                        <li>Prefira métodos analíticos que usem menores quantidades de reagentes</li>
+                        <li>Considere a substituição por produtos menos tóxicos quando possível</li>
+                        <li>Reutilize solventes e outros materiais quando seguro e apropriado</li>
+                    </ul>
+                </div>
+                
+                <button class="accordion-btn">Tratamento no Local</button>
+                <div class="accordion-content">
+                    <ul class="steps">
+                        <li>Neutralize ácidos e bases quando permitido</li>
+                        <li>Realize tratamentos físicos como decantação ou filtração quando aplicável</li>
+                        <li>Nunca realize tratamentos químicos sem conhecimento adequado</li>
+                        <li>Documente todos os tratamentos realizados</li>
+                    </ul>
+                </div>
+                
+                <button class="accordion-btn">Preparação para Descarte</button>
+                <div class="accordion-content">
+                    <ul class="steps">
+                        <li>Verifique se o resíduo está devidamente identificado</li>
+                        <li>Use embalagens resistentes e compatíveis com o resíduo</li>
+                        <li>Preencha todas as informações necessárias nas etiquetas</li>
+                        <li>Certifique-se de que o volume não exceda a capacidade do recipiente</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>Responsabilidades</h3>
+            <div class="info-box">
+                <p>Cada membro da equipe é responsável pelo gerenciamento adequado dos resíduos que gera. O responsável pelo laboratório deve garantir que todos os procedimentos sejam seguidos e que a documentação esteja completa.</p>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h2>Treinamento e Capacitação</h2>
+            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Treinamento">
+            
+            <ul class="steps">
+                <li>Todos os usuários do laboratório devem receber treinamento inicial</li>
+                <li>Realize reciclagens periódicas (recomendado a cada 12 meses)</li>
+                <li>Mantenha registros de treinamentos realizados</li>
+                <li>Forneça instruções específicas para resíduos novos ou incomuns</li>
+            </ul>
+            
+            <a href="#" class="btn" id="simulator-btn">Acessar Simulador de Gestão</a>
+        </div>
+        
+        <div class="content-section">
+            <h2>Legislação Aplicável</h2>
+            <div class="info-box">
+                <p>A gestão de resíduos químicos está sujeita a diversas normas federais, estaduais e municipais. Consulte sempre a legislação atualizada.</p>
+            </div>
+            
+            <a href="legislacao.html" class="btn">Ver Legislação Completa</a>
+        </div>
+    </div>
+    
+    <a href="telefones.html" class="floating-btn">!</a>
+    
+    <footer>
+        <p>© 2023 Sistema de Gestão de Resíduos Químicos | Desenvolvido para segurança laboratorial</p>
+        <p>Em caso de emergência, ligue: <strong>192 (SAMU) | 193 (Bombeiros)</strong></p>
+    </footer>
+    
+    <script>
+        // Sistema de abas
+        function openTab(evt, tabName) {
+            const tabContents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+            
+            const tabButtons = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("active");
+            }
+            
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        
+        // Sistema de acordeão
+        const accordionBtns = document.querySelectorAll(".accordion-btn");
+        
+        accordionBtns.forEach(btn => {
+            btn.addEventListener("click", function() {
+                this.classList.toggle("active");
+                const content = this.nextElementSibling;
+                
+                if (content.classList.contains("show")) {
+                    content.classList.remove("show");
+                } else {
+                    // Fecha outros itens do acordeão
+                    document.querySelectorAll(".accordion-content").forEach(item => {
+                        item.classList.remove("show");
+                    });
+                    document.querySelectorAll(".accordion-btn").forEach(item => {
+                        item.classList.remove("active");
+                    });
+                    
+                    this.classList.add("active");
+                    content.classList.add("show");
+                }
+            });
+        });
+        
+        // Botão do simulador
+        document.getElementById("simulator-btn").addEventListener("click", function(e) {
+            e.preventDefault();
+            alert("Simulador de gestão de resíduos será aberto em uma nova janela. Em desenvolvimento.");
+        });
+        
+        // Tooltip para o botão flutuante
+        const floatingBtn = document.querySelector(".floating-btn");
+        floatingBtn.addEventListener("mouseover", function() {
+            this.setAttribute("title", "Emergência - Telefones Úteis");
+        });
+    </script>
+<!-- Leitor de Tela -->
+<div id="screen-reader-panel" style="display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: #333; color: white; padding: 1rem; z-index: 1000;">
+    <div style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto;">
+        <div id="reader-text" style="flex-grow: 1; margin-right: 1rem;"></div>
+        <div>
+            <button id="reader-play" style="background: #4CAF50; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">▶</button>
+            <button id="reader-pause" style="background: #f39c12; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">⏸</button>
+            <button id="reader-stop" style="background: #e74c3c; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">⏹</button>
+            <button id="reader-close" style="background: #555; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">Fechar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Funções de acessibilidade
+    document.addEventListener('DOMContentLoaded', function() {
+        // Controle de tamanho da fonte
+        document.getElementById('increase-font').addEventListener('click', function() {
+            const currentSize = parseFloat(getComputedStyle(document.body).fontSize);
+            document.body.style.fontSize = (currentSize + 1) + 'px';
+        });
+        
+        document.getElementById('decrease-font').addEventListener('click', function() {
+            const currentSize = parseFloat(getComputedStyle(document.body).fontSize);
+            if (currentSize > 12) {
+                document.body.style.fontSize = (currentSize - 1) + 'px';
+            }
+        });
+        
+        // Modo alto contraste
+        document.getElementById('high-contrast').addEventListener('click', function() {
+            document.body.classList.toggle('high-contrast');
+            localStorage.setItem('highContrast', document.body.classList.contains('high-contrast'));
+        });
+        
+        // Verificar preferência salva
+        if (localStorage.getItem('highContrast') === 'true') {
+            document.body.classList.add('high-contrast');
+        }
+        
+        // Pular para conteúdo
+        document.getElementById('skip-content').addEventListener('click', function() {
+            const mainContent = document.querySelector('.container');
+            mainContent.tabIndex = -1;
+            mainContent.focus();
+        });
+        
+        // Leitor de tela
+        const readerPanel = document.getElementById('screen-reader-panel');
+        const readerText = document.getElementById('reader-text');
+        let speechSynthesis = window.speechSynthesis;
+        let currentUtterance = null;
+        
+        document.getElementById('screen-reader').addEventListener('click', function() {
+            readerPanel.style.display = 'block';
+            readPageContent();
+        });
+        
+        document.getElementById('reader-close').addEventListener('click', function() {
+            readerPanel.style.display = 'none';
+            stopReading();
+        });
+        
+        document.getElementById('reader-play').addEventListener('click', readPageContent);
+        document.getElementById('reader-pause').addEventListener('click', pauseReading);
+        document.getElementById('reader-stop').addEventListener('click', stopReading);
+        
+        function readPageContent() {
+            // Pausa se já estiver lendo
+            if (speechSynthesis.speaking) {
+                speechSynthesis.pause();
+            }
+            
+            // Obtém todo o texto principal da página
+            const mainContent = document.querySelector('.container').innerText;
+            readerText.textContent = mainContent;
+            
+            // Configura a fala
+            currentUtterance = new SpeechSynthesisUtterance(mainContent);
+            currentUtterance.lang = 'pt-BR';
+            currentUtterance.rate = 1;
+            currentUtterance.pitch = 1;
+            
+            // Evento quando terminar de ler
+            currentUtterance.onend = function() {
+                readerText.textContent = "Leitura concluída.";
+            };
+            
+            // Inicia a leitura
+            speechSynthesis.speak(currentUtterance);
+        }
+        
+        function pauseReading() {
+            if (speechSynthesis.speaking) {
+                speechSynthesis.pause();
+                readerText.textContent = "Leitura pausada.";
+            }
+        }
+        
+        function stopReading() {
+            speechSynthesis.cancel();
+            readerText.textContent = "Leitura interrompida.";
+        }
+    });
+</script>	
+</body>
+</html>

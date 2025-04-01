@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classificação de Resíduos Químicos</title>
+    <!-- Mesmo estilo da página anterior -->
+    <style>
+        /* Manter o mesmo estilo da página gestao.html */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .logo img {
+            height: 60px;
+            margin-right: 15px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .emergency {
+            background-color: var(--accent-color);
+        }
+        
+        .emergency:hover {
+            background-color: #c0392b;
+        }
+        
+        .content-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .content-section:hover {
+            transform: translateY(-5px);
+        }
+        
+        .content-section h2 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+        }
+        
+        .content-section h3 {
+            color: var(--primary-color);
+            margin: 1.5rem 0 0.5rem;
+        }
+        
+        .content-section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1rem 0;
+            display: block;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .steps {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .steps li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .steps li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+        }
+        
+        .info-box {
+            background-color: #e7f5ff;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .info-box:hover {
+            background-color: #d0ebff;
+        }
+        
+        .warning-box {
+            background-color: #fff3bf;
+            border-left: 4px solid #ffd43b;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .danger-box {
+            background-color: #ffc9c9;
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        
+        .classification-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        
+        .classification-table th, 
+        .classification-table td {
+            border: 1px solid #ddd;
+            padding: 0.8rem;
+            text-align: left;
+        }
+        
+        .classification-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .class-a {
+            background-color: #d4edda;
+        }
+        
+        .class-b {
+            background-color: #fff3cd;
+        }
+        
+        .class-c {
+            background-color: #f8d7da;
+        }
+        
+        .floating-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--accent-color);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        
+        .floating-btn:hover {
+            transform: scale(1.1);
+            background-color: #c0392b;
+        }
+        
+        .classifier-container {
+            margin: 1.5rem 0;
+        }
+        
+        .classifier-form {
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
+        }
+        
+        .result-classification {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .floating-btn {
+                bottom: 1rem;
+                right: 1rem;
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+<!-- Barra de Acessibilidade -->
+<div class="accessibility-bar">
+    <button id="increase-font" title="Aumentar fonte" aria-label="Aumentar tamanho da fonte">A+</button>
+    <button id="decrease-font" title="Diminuir fonte" aria-label="Diminuir tamanho da fonte">A-</button>
+    <button id="high-contrast" title="Alto contraste" aria-label="Alternar modo de alto contraste">Alto Contraste</button>
+    <button id="screen-reader" title="Ler conteúdo" aria-label="Ativar leitor de tela">Leitor de Tela</button>
+    <button id="skip-content" title="Pular para conteúdo" aria-label="Pular para conteúdo principal">Pular para Conteúdo</button>
+</div>
+
+<style>
+    /* Estilos da barra de acessibilidade */
+    .accessibility-bar {
+        background-color: #333;
+        padding: 0.5rem;
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.5rem;
+    }
+    
+    .accessibility-bar button {
+        background-color: #444;
+        color: white;
+        border: none;
+        padding: 0.3rem 0.6rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.9rem;
+    }
+    
+    .accessibility-bar button:hover {
+        background-color: #555;
+    }
+    
+    /* Estilos para alto contraste */
+    .high-contrast {
+        background-color: #000 !important;
+        color: #fff !important;
+    }
+    
+    .high-contrast a {
+        color: #ffff00 !important;
+    }
+    
+    .high-contrast .content-section {
+        border: 2px solid #fff !important;
+    }
+</style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="https://cdn-icons-png.flaticon.com/512/3063/3063187.png" alt="Ícone de Química">
+            <h1>Classificação de Resíduos Químicos</h1>
+        </div>
+        <p>Entenda como os resíduos químicos são classificados e seus riscos associados</p>
+    </header>
+    
+    <div class="container">
+        <a href="index.html" class="btn back-btn">← Voltar para a página principal</a>
+        
+        <div class="content-section">
+            <h2>Sistema de Classificação</h2>
+            <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Classificação de resíduos">
+            
+            <div class="info-box">
+                <p>A classificação de resíduos é fundamental para determinar os procedimentos adequados de manejo, armazenamento, transporte e destinação final.</p>
+            </div>
+            
+            <h3>Classificação Segundo a NBR 10.004</h3>
+            <p>A Norma Brasileira NBR 10.004 classifica os resíduos sólidos em três classes principais:</p>
+            
+            <table class="classification-table">
+                <tr>
+                    <th>Classe</th>
+                    <th>Definição</th>
+                    <th>Exemplos</th>
+                    <th>Riscos</th>
+                </tr>
+                <tr class="class-a">
+                    <td><strong>Classe I - Perigosos</strong></td>
+                    <td>Resíduos que apresentam riscos à saúde pública ou ao meio ambiente devido às suas características de inflamabilidade, corrosividade, reatividade, toxicidade ou patogenicidade.</td>
+                    <td>
+                        <ul>
+                            <li>Solventes orgânicos</li>
+                            <li>Ácidos/bases concentrados</li>
+                            <li>Resíduos com metais pesados</li>
+                            <li>Resíduos tóxicos</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>Intoxicação</li>
+                            <li>Queimaduras químicas</li>
+                            <li>Contaminação ambiental</li>
+                            <li>Explosão/incêndio</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="class-b">
+                    <td><strong>Classe II - Não Perigosos</strong></td>
+                    <td>Resíduos que não apresentam perigo, mas podem ter características como combustibilidade, biodegradabilidade ou solubilidade em água.</td>
+                    <td>
+                        <ul>
+                            <li>Resíduos de laboratório não contaminados</li>
+                            <li>Embalagens vazias limpas</li>
+                            <li>Resíduos orgânicos não tóxicos</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>Impacto ambiental reduzido</li>
+                            <li>Pouco risco à saúde</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="class-c">
+                    <td><strong>Classe II A - Não Inertes</strong></td>
+                    <td>Resíduos não perigosos que podem ter propriedades como biodegradabilidade ou solubilidade em água.</td>
+                    <td>
+                        <ul>
+                            <li>Resíduos orgânicos</li>
+                            <li>Papel, plástico, madeira</li>
+                            <li>Resíduos de alimentos</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>Potencial de geração de chorume</li>
+                            <li>Atraem vetores</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="class-b">
+                    <td><strong>Classe II B - Inertes</strong></td>
+                    <td>Resíduos que não sofrem transformações físicas, químicas ou biológicas significativas quando expostos às condições naturais.</td>
+                    <td>
+                        <ul>
+                            <li>Vidro</li>
+                            <li>Areia</li>
+                            <li>Entulho de construção</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>Baixíssimo risco</li>
+                            <li>Problemas apenas por volume</li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="content-section">
+            <h2>Características de Periculosidade</h2>
+            <p>Os resíduos perigosos (Classe I) são classificados de acordo com suas características:</p>
+            
+            <div class="info-box">
+                <p><strong>Inflamabilidade:</strong> Resíduos que podem causar fogo através de atrito, absorção de umidade ou alterações químicas espontâneas.</p>
+            </div>
+            
+            <div class="warning-box">
+                <p><strong>Corrosividade:</strong> Resíduos com pH ≤ 2 ou ≥ 12,5 ou que corroem o aço a uma taxa > 6,35 mm/ano.</p>
+            </div>
+            
+            <div class="danger-box">
+                <p><strong>Reatividade:</strong> Resíduos que reagem violentamente com água, geram gases tóxicos ou são explosivos.</p>
+            </div>
+            
+            <div class="info-box">
+                <p><strong>Toxicidade:</strong> Resíduos que contêm constituintes listados como tóxicos ou que apresentam toxicidade comprovada.</p>
+            </div>
+            
+            <div class="warning-box">
+                <p><strong>Patogenicidade:</strong> Resíduos que contêm microorganismos capazes de causar doenças (mais comum em resíduos biológicos).</p>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h2>Classificador de Resíduos</h2>
+            <p>Use esta ferramenta para ajudar a classificar um resíduo químico:</p>
+            
+            <div class="classifier-container">
+                <div class="classifier-form">
+                    <div class="form-group">
+                        <label for="residuo-nome">Nome do Resíduo</label>
+                        <input type="text" id="residuo-nome" placeholder="Ex: Ácido sulfúrico usado">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="residuo-composicao">Composição Principal</label>
+                        <input type="text" id="residuo-composicao" placeholder="Ex: H2SO4 10%, metais pesados">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="residuo-caracteristicas">Características Observadas</label>
+                        <select id="residuo-caracteristicas" multiple size="5">
+                            <option value="inflamavel">Inflamável</option>
+                            <option value="corrosivo">Corrosivo</option>
+                            <option value="reativo">Reativo (explosivo/gera gases)</option>
+                            <option value="toxico">Tóxico</option>
+                            <option value="patogenico">Patogênico</option>
+                            <option value="nenhum">Nenhuma das acima</option>
+                        </select>
+                        <small>Mantenha Ctrl pressionado para selecionar múltiplas opções</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="residuo-observacoes">Observações Adicionais</label>
+                        <textarea id="residuo-observacoes" placeholder="Descreva outras características relevantes"></textarea>
+                    </div>
+                    
+                    <button class="btn" onclick="classificarResiduo()">Classificar Resíduo</button>
+                </div>
+                
+                <div class="result-classification" id="result-classification">
+                    <h4>Resultado da Classificação:</h4>
+                    <p id="classification-result"></p>
+                    <p id="classification-description"></p>
+                    <div id="classification-recommendations"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h2>Implicações da Classificação</h2>
+            <p>A classificação do resíduo determina os procedimentos que devem ser seguidos:</p>
+            
+            <div class="info-box">
+                <h4>Resíduos Classe I - Perigosos</h4>
+                <ul class="steps">
+                    <li>Armazenamento em recipientes específicos e identificados</li>
+                    <li>Transporte com Manifesto de Transporte de Resíduos (MTR)</li>
+                    <li>Destinação final em locais licenciados</li>
+                    <li>Tratamento prévio quando necessário</li>
+                    <li>Documentação completa do processo</li>
+                </ul>
+            </div>
+            
+            <div class="warning-box">
+                <h4>Resíduos Classe II A - Não Inertes</h4>
+                <ul class="steps">
+                    <li>Armazenamento adequado para evitar contaminação</li>
+                    <li>Reciclagem quando possível</li>
+                    <li>Aterro sanitário como destino final</li>
+                    <li>Documentação simplificada</li>
+                </ul>
+            </div>
+            
+            <div class="info-box">
+                <h4>Resíduos Classe II B - Inertes</h4>
+                <ul class="steps">
+                    <li>Armazenamento simples</li>
+                    <li>Reciclagem preferencial</li>
+                    <li>Aterro de inertes como destino final</li>
+                    <li>Pouca documentação necessária</li>
+                </ul>
+            </div>
+            
+            <a href="gestao.html" class="btn">Ver Procedimentos de Gestão por Classe</a>
+        </div>
+    </div>
+    
+    <a href="telefones.html" class="floating-btn">!</a>
+    
+    <footer>
+        <p>© 2023 Sistema de Gestão de Resíduos Químicos | Desenvolvido para segurança laboratorial</p>
+        <p>Em caso de emergência, ligue: <strong>192 (SAMU) | 193 (Bombeiros)</strong></p>
+    </footer>
+    
+    <script>
+        // Classificador de resíduos
+        function classificarResiduo() {
+            const nome = document.getElementById("residuo-nome").value;
+            const composicao = document.getElementById("residuo-composicao").value;
+            const caracteristicas = Array.from(document.getElementById("residuo-caracteristicas").selectedOptions)
+                                        .map(option => option.value);
+            const observacoes = document.getElementById("residuo-observacoes").value;
+            
+            if (!nome || !composicao || caracteristicas.length === 0) {
+                alert("Por favor, preencha pelo menos o nome, composição e selecione as características do resíduo.");
+                return;
+            }
+            
+            const resultDiv = document.getElementById("result-classification");
+            const resultText = document.getElementById("classification-result");
+            const descriptionText = document.getElementById("classification-description");
+            const recommendationsDiv = document.getElementById("classification-recommendations");
+            
+            // Lógica de classificação simplificada
+            let classe = "Classe II B - Inertes";
+            let descricao = "Resíduo com baixo potencial de impacto ambiental.";
+            let recomendacoes = [];
+            
+            if (caracteristicas.includes("nenhum") && caracteristicas.length === 1) {
+                classe = "Classe II B - Inertes";
+                descricao = "Resíduo que não apresenta características perigosas e é quimicamente inerte.";
+                recomendacoes = [
+                    "Armazenar em recipiente adequado ao tipo de resíduo",
+                    "Encaminhar para reciclagem quando possível",
+                    "Destinar para aterro de inertes"
+                ];
+            } else if (caracteristicas.includes("inflamavel") || 
+                      caracteristicas.includes("corrosivo") || 
+                      caracteristicas.includes("reativo") || 
+                      caracteristicas.includes("toxico") || 
+                      caracteristicas.includes("patogenico")) {
+                classe = "Classe I - Perigosos";
+                descricao = "Resíduo que apresenta uma ou mais características de periculosidade:";
+                
+                if (caracteristicas.includes("inflamavel")) {
+                    descricao += " inflamável;";
+                }
+                if (caracteristicas.includes("corrosivo")) {
+                    descricao += " corrosivo;";
+                }
+                if (caracteristicas.includes("reativo")) {
+                    descricao += " reativo;";
+                }
+                if (caracteristicas.includes("toxico")) {
+                    descricao += " tóxico;";
+                }
+                if (caracteristicas.includes("patogenico")) {
+                    descricao += " patogênico;";
+                }
+                
+                recomendacoes = [
+                    "Armazenar em recipiente compatível e devidamente identificado",
+                    "Manter segregado de resíduos incompatíveis",
+                    "Preencher a ficha de emergência e o MTR para transporte",
+                    "Encaminhar para tratamento/destinação final por empresa licenciada",
+                    "Manter registro completo do processo"
+                ];
+            } else {
+                classe = "Classe II A - Não Inertes";
+                descricao = "Resíduo não perigoso, mas com potencial para causar algum impacto ambiental.";
+                recomendacoes = [
+                    "Armazenar em local adequado",
+                    "Considerar possibilidade de reciclagem",
+                    "Encaminhar para aterro sanitário licenciado"
+                ];
+            }
+            
+            resultText.textContent = `Classificação: ${classe}`;
+            descriptionText.textContent = descricao;
+            
+            recommendationsDiv.innerHTML = "<h5>Recomendações de Manejo:</h5><ul>";
+            recomendacoes.forEach(recomendacao => {
+                recommendationsDiv.innerHTML += `<li>${recomendacao}</li>`;
+            });
+            recommendationsDiv.innerHTML += "</ul>";
+            
+            resultDiv.style.display = "block";
+            
+            // Ajustar cor de fundo conforme a classe
+            if (classe.includes("Classe I")) {
+                resultDiv.style.backgroundColor = "#f8d7da";
+                resultDiv.style.borderLeft = "4px solid #e74c3c";
+            } else if (classe.includes("Classe II A")) {
+                resultDiv.style.backgroundColor = "#fff3cd";
+                resultDiv.style.borderLeft = "4px solid #ffd43b";
+            } else {
+                resultDiv.style.backgroundColor = "#d4edda";
+                resultDiv.style.borderLeft = "4px solid #28a745";
+            }
+        }
+        
+        // Tooltip para o botão flutuante
+        const floatingBtn = document.querySelector(".floating-btn");
+        floatingBtn.addEventListener("mouseover", function() {
+            this.setAttribute("title", "Emergência - Telefones Úteis");
+        });
+    </script>
+<!-- Leitor de Tela -->
+<div id="screen-reader-panel" style="display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: #333; color: white; padding: 1rem; z-index: 1000;">
+    <div style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto;">
+        <div id="reader-text" style="flex-grow: 1; margin-right: 1rem;"></div>
+        <div>
+            <button id="reader-play" style="background: #4CAF50; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">▶</button>
+            <button id="reader-pause" style="background: #f39c12; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">⏸</button>
+            <button id="reader-stop" style="background: #e74c3c; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">⏹</button>
+            <button id="reader-close" style="background: #555; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">Fechar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Funções de acessibilidade
+    document.addEventListener('DOMContentLoaded', function() {
+        // Controle de tamanho da fonte
+        document.getElementById('increase-font').addEventListener('click', function() {
+            const currentSize = parseFloat(getComputedStyle(document.body).fontSize);
+            document.body.style.fontSize = (currentSize + 1) + 'px';
+        });
+        
+        document.getElementById('decrease-font').addEventListener('click', function() {
+            const currentSize = parseFloat(getComputedStyle(document.body).fontSize);
+            if (currentSize > 12) {
+                document.body.style.fontSize = (currentSize - 1) + 'px';
+            }
+        });
+        
+        // Modo alto contraste
+        document.getElementById('high-contrast').addEventListener('click', function() {
+            document.body.classList.toggle('high-contrast');
+            localStorage.setItem('highContrast', document.body.classList.contains('high-contrast'));
+        });
+        
+        // Verificar preferência salva
+        if (localStorage.getItem('highContrast') === 'true') {
+            document.body.classList.add('high-contrast');
+        }
+        
+        // Pular para conteúdo
+        document.getElementById('skip-content').addEventListener('click', function() {
+            const mainContent = document.querySelector('.container');
+            mainContent.tabIndex = -1;
+            mainContent.focus();
+        });
+        
+        // Leitor de tela
+        const readerPanel = document.getElementById('screen-reader-panel');
+        const readerText = document.getElementById('reader-text');
+        let speechSynthesis = window.speechSynthesis;
+        let currentUtterance = null;
+        
+        document.getElementById('screen-reader').addEventListener('click', function() {
+            readerPanel.style.display = 'block';
+            readPageContent();
+        });
+        
+        document.getElementById('reader-close').addEventListener('click', function() {
+            readerPanel.style.display = 'none';
+            stopReading();
+        });
+        
+        document.getElementById('reader-play').addEventListener('click', readPageContent);
+        document.getElementById('reader-pause').addEventListener('click', pauseReading);
+        document.getElementById('reader-stop').addEventListener('click', stopReading);
+        
+        function readPageContent() {
+            // Pausa se já estiver lendo
+            if (speechSynthesis.speaking) {
+                speechSynthesis.pause();
+            }
+            
+            // Obtém todo o texto principal da página
+            const mainContent = document.querySelector('.container').innerText;
+            readerText.textContent = mainContent;
+            
+            // Configura a fala
+            currentUtterance = new SpeechSynthesisUtterance(mainContent);
+            currentUtterance.lang = 'pt-BR';
+            currentUtterance.rate = 1;
+            currentUtterance.pitch = 1;
+            
+            // Evento quando terminar de ler
+            currentUtterance.onend = function() {
+                readerText.textContent = "Leitura concluída.";
+            };
+            
+            // Inicia a leitura
+            speechSynthesis.speak(currentUtterance);
+        }
+        
+        function pauseReading() {
+            if (speechSynthesis.speaking) {
+                speechSynthesis.pause();
+                readerText.textContent = "Leitura pausada.";
+            }
+        }
+        
+        function stopReading() {
+            speechSynthesis.cancel();
+            readerText.textContent = "Leitura interrompida.";
+        }
+    });
+</script>
+</body>
+</html>

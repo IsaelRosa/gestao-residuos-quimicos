@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitação de Recolhimento de Resíduos</title>
+    <!-- Mesmo estilo da página anterior -->
+    <style>
+        /* Manter o mesmo estilo da página gestao.html */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .logo img {
+            height: 60px;
+            margin-right: 15px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .emergency {
+            background-color: var(--accent-color);
+        }
+        
+        .emergency:hover {
+            background-color: #c0392b;
+        }
+        
+        .content-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .content-section:hover {
+            transform: translateY(-5px);
+        }
+        
+        .content-section h2 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+        }
+        
+        .content-section h3 {
+            color: var(--primary-color);
+            margin: 1.5rem 0 0.5rem;
+        }
+        
+        .content-section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1rem 0;
+            display: block;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .steps {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .steps li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .steps li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+        }
+        
+        .info-box {
+            background-color: #e7f5ff;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .info-box:hover {
+            background-color: #d0ebff;
+        }
+        
+        .warning-box {
+            background-color: #fff3bf;
+            border-left: 4px solid #ffd43b;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .danger-box {
+            background-color: #ffc9c9;
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .checklist {
+            margin: 1rem 0;
+        }
+        
+        .checklist-item {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .checklist-item input {
+            margin-right: 0.5rem;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 10px;
+            background-color: var(--secondary-color);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .floating-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--accent-color);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        
+        .floating-btn:hover {
+            transform: scale(1.1);
+            background-color: #c0392b;
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .floating-btn {
+                bottom: 1rem;
+                right: 1rem;
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+<!-- Barra de Acessibilidade -->
+<div class="accessibility-bar">
+    <button id="increase-font" title="Aumentar fonte" aria-label="Aumentar tamanho da fonte">A+</button>
+    <button id="decrease-font" title="Diminuir fonte" aria-label="Diminuir tamanho da fonte">A-</button>
+    <button id="high-contrast" title="Alto contraste" aria-label="Alternar modo de alto contraste">Alto Contraste</button>
+    <button id="screen-reader" title="Ler conteúdo" aria-label="Ativar leitor de tela">Leitor de Tela</button>
+    <button id="skip-content" title="Pular para conteúdo" aria-label="Pular para conteúdo principal">Pular para Conteúdo</button>
+</div>
+
+<style>
+    /* Estilos da barra de acessibilidade */
+    .accessibility-bar {
+        background-color: #333;
+        padding: 0.5rem;
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.5rem;
+    }
+    
+    .accessibility-bar button {
+        background-color: #444;
+        color: white;
+        border: none;
+        padding: 0.3rem 0.6rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.9rem;
+    }
+    
+    .accessibility-bar button:hover {
+        background-color: #555;
+    }
+    
+    /* Estilos para alto contraste */
+    .high-contrast {
+        background-color: #000 !important;
+        color: #fff !important;
+    }
+    
+    .high-contrast a {
+        color: #ffff00 !important;
+    }
+    
+    .high-contrast .content-section {
+        border: 2px solid #fff !important;
+    }
+</style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="https://cdn-icons-png.flaticon.com/512/3063/3063187.png" alt="Ícone de Química">
+            <h1>Solicitação de Recolhimento de Resíduos</h1>
+        </div>
+        <p>Procedimento para solicitar a coleta de resíduos químicos</p>
+    </header>
+    
+    <div class="container">
+        <a href="index.html" class="btn back-btn">← Voltar para a página principal</a>
+        
+        <div class="content-section">
+            <h2>Formulário de Solicitação</h2>
+            <div class="info-box">
+                <p>Preencha este formulário para solicitar o recolhimento dos resíduos químicos gerados no laboratório. Todos os campos são obrigatórios.</p>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress" id="form-progress"></div>
+            </div>
+            
+            <form id="coleta-form">
+                <div class="form-group">
+                    <label for="solicitante">Nome do Solicitante</label>
+                    <input type="text" id="solicitante" name="solicitante" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="laboratorio">Laboratório/Setor</label>
+                        <input type="text" id="laboratorio" name="laboratorio" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="data">Data da Solicitação</label>
+                        <input type="date" id="data" name="data" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="contato">Telefone para Contato</label>
+                    <input type="tel" id="contato" name="contato" required>
+                </div>
+                
+                <h3>Informações sobre os Resíduos</h3>
+                
+                <div class="form-group">
+                    <label for="tipo-residuo">Tipo de Resíduo</label>
+                    <select id="tipo-residuo" name="tipo-residuo" required>
+                        <option value="">Selecione...</option>
+                        <option value="solventes">Solventes Orgânicos</option>
+                        <option value="acidosebases">Ácidos e Bases</option>
+                        <option value="metais">Resíduos com Metais Pesados</option>
+                        <option value="biologicos">Resíduos Biológicos/Químicos</option>
+                        <option value="outros">Outros (especificar)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group" id="outros-group" style="display: none;">
+                    <label for="outros-desc">Descreva o tipo de resíduo</label>
+                    <input type="text" id="outros-desc" name="outros-desc">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="quantidade">Quantidade Aproximada (em litros/kg)</label>
+                        <input type="number" id="quantidade" name="quantidade" min="0" step="0.1" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="recipiente">Tipo de Recipiente</label>
+                        <select id="recipiente" name="recipiente" required>
+                            <option value="">Selecione...</option>
+                            <option value="plasticodenso">Plástico de Densidade Linear (PEAD)</option>
+                            <option value="vidro">Vidro</option>
+                            <option value="metal">Metal</option>
+                            <option value="outrorecipiente">Outro</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="caracteristicas">Características e Composição</label>
+                    <textarea id="caracteristicas" name="caracteristicas" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="riscos">Riscos Associados</label>
+                    <textarea id="riscos" name="riscos" required></textarea>
+                </div>
+                
+                <h3>Checklist de Preparação</h3>
+                <div class="warning-box">
+                    <p>Verifique se todos os itens abaixo foram atendidos antes de solicitar a coleta:</p>
+                </div>
+                
+                <div class="checklist">
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check1" name="check1" required>
+                        <label for="check1">Os resíduos estão devidamente segregados por compatibilidade química</label>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check2" name="check2" required>
+                        <label for="check2">Todos os recipientes estão identificados com etiqueta padrão</label>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check3" name="check3" required>
+                        <label for="check3">Os recipientes estão em boas condições e adequados para o resíduo</label>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check4" name="check4" required>
+                        <label for="check4">O volume não excede 80% da capacidade do recipiente</label>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check5" name="check5" required>
+                        <label for="check5">As informações sobre riscos e composição estão disponíveis</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="observacoes">Observações Adicionais</label>
+                    <textarea id="observacoes" name="observacoes"></textarea>
+                </div>
+                
+                <button type="submit" class="btn">Enviar Solicitação</button>
+            </form>
+        </div>
+        
+        <div class="content-section">
+            <h2>Fluxo do Processo de Recolhimento</h2>
+            <img src="https://www.ufrgs.br/labcontrol/images/fluxo-recolhimento.jpg" alt="Fluxo do Processo">
+            
+            <ul class="steps">
+                <li><strong>1. Solicitação:</strong> Preenchimento deste formulário</li>
+                <li><strong>2. Análise:</strong> Avaliação pela equipe de gestão de resíduos (24-48h)</li>
+                <li><strong>3. Agendamento:</strong> Definição de data para coleta</li>
+                <li><strong>4. Coleta:</strong> Retirada dos resíduos pelo pessoal autorizado</li>
+                <li><strong>5. Documentação:</strong> Emissão do Manifesto de Transporte de Resíduos (MTR)</li>
+                <li><strong>6. Destinação Final:</strong> Encaminhamento para tratamento/disposição final</li>
+            </ul>
+            
+            <div class="info-box">
+                <p>O prazo médio entre a solicitação e a coleta é de 3 a 5 dias úteis, dependendo da quantidade e tipo de resíduo.</p>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h2>Dúvidas Frequentes</h2>
+            
+            <div class="form-group">
+                <label for="duvida">Tem alguma dúvida sobre o processo?</label>
+                <input type="text" id="duvida" name="duvida" placeholder="Digite sua dúvida...">
+                <button class="btn" style="margin-top: 0.5rem;" onclick="buscarDuvida()">Buscar Resposta</button>
+            </div>
+            
+            <div id="resposta-duvida" style="display: none; margin-top: 1rem; padding: 1rem; background-color: #f8f9fa; border-radius: 4px;">
+                <h4>Resposta:</h4>
+                <p id="texto-resposta"></p>
+            </div>
+        </div>
+    </div>
+    
+    <a href="telefones.html" class="floating-btn">!</a>
+    
+    <footer>
+        <p>© 2023 Sistema de Gestão de Resíduos Químicos | Desenvolvido para segurança laboratorial</p>
+        <p>Em caso de emergência, ligue: <strong>192 (SAMU) | 193 (Bombeiros)</strong></p>
+    </footer>
+    
+    <script>
+        // Mostrar campo "outros" quando selecionado
+        document.getElementById("tipo-residuo").addEventListener("change", function() {
+            const outrosGroup = document.getElementById("outros-group");
+            if (this.value === "outros") {
+                outrosGroup.style.display = "block";
+                document.getElementById("outros-desc").setAttribute("required", "");
+            } else {
+                outrosGroup.style.display = "none";
+                document.getElementById("outros-desc").removeAttribute("required");
+            }
+            
+            updateProgress();
+        });
+        
+        // Atualizar barra de progresso
+        function updateProgress() {
+            const form = document.getElementById("coleta-form");
+            const inputs = form.querySelectorAll("input, select, textarea");
+            const checkboxes = form.querySelectorAll("input[type='checkbox']");
+            let filled = 0;
+            let total = inputs.length;
+            
+            inputs.forEach(input => {
+                if (input.type !== "checkbox" && input.value.trim() !== "") {
+                    filled++;
+                }
+            });
+            
+            // Verificar checkboxes
+            let checked = 0;
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) checked++;
+            });
+            
+            filled += checked;
+            total += checkboxes.length;
+            
+            const progress = (filled / total) * 100;
+            document.getElementById("form-progress").style.width = progress + "%";
+        }
+        
+        // Adicionar eventos para atualizar progresso
+        const formInputs = document.querySelectorAll("#coleta-form input, #coleta-form select, #coleta-form textarea");
+        formInputs.forEach(input => {
+            input.addEventListener("input", updateProgress);
+            if (input.type === "checkbox") {
+                input.addEventListener("change", updateProgress);
+            }
+        });
+        
+        // Envio do formulário
+        document.getElementById("coleta-form").addEventListener("submit", function(e) {
+            e.preventDefault();
+            
+            // Validação adicional
+            const checkboxes = document.querySelectorAll(".checklist input[type='checkbox']");
+            let allChecked = true;
+            
+            checkboxes.forEach(checkbox => {
+                if (!checkbox.checked) allChecked = false;
+            });
+            
+            if (!allChecked) {
+                alert("Por favor, confirme que todos os itens do checklist foram atendidos.");
+                return;
+            }
+            
+            // Simular envio
+            alert("Solicitação enviada com sucesso! Você receberá um e-mail de confirmação.");
+            this.reset();
+            document.getElementById("form-progress").style.width = "0%";
+        });
+        
+        // Sistema de dúvidas
+        const faq = {
+            "prazo": "O prazo médio para recolhimento é de 3 a 5 dias úteis após a aprovação da solicitação.",
+            "urgente": "Para casos urgentes, entre em contato diretamente com a equipe de gestão de resíduos pelo telefone (XX) XXXX-XXXX.",
+            "quantidade": "Não há quantidade mínima para solicitação, mas pequenas quantidades podem ser agrupadas para otimizar o processo.",
+            "custo": "O custo do recolhimento varia conforme o tipo e quantidade de resíduo. Consulte a tabela de custos no setor de gestão ambiental.",
+            "documentos": "É necessário preencher o MTR (Manifesto de Transporte de Resíduos) que será fornecido pela equipe de coleta."
+        };
+        
+        function buscarDuvida() {
+            const duvida = document.getElementById("duvida").value.toLowerCase();
+            const respostaDiv = document.getElementById("resposta-duvida");
+            const textoResposta = document.getElementById("texto-resposta");
+            
+            let resposta = "Desculpe, não encontrei uma resposta para sua dúvida. Por favor, entre em contato com a equipe de gestão de resíduos.";
+            
+            for (const [key, value] of Object.entries(faq)) {
+                if (duvida.includes(key)) {
+                    resposta = value;
+                    break;
+                }
+            }
+            
+            textoResposta.textContent = resposta;
+            respostaDiv.style.display = "block";
+        }
+        
+        // Tooltip para o botão flutuante
+        const floatingBtn = document.querySelector(".floating-btn");
+        floatingBtn.addEventListener("mouseover", function() {
+            this.setAttribute("title", "Emergência - Telefones Úteis");
+        });
+    </script>
+<!-- Leitor de Tela -->
+<div id="screen-reader-panel" style="display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: #333; color: white; padding: 1rem; z-index: 1000;">
+    <div style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto;">
+        <div id="reader-text" style="flex-grow: 1; margin-right: 1rem;"></div>
+        <div>
+            <button id="reader-play" style="background: #4CAF50; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">▶</button>
+            <button id="reader-pause" style="background: #f39c12; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">⏸</button>
+            <button id="reader-stop" style="background: #e74c3c; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">⏹</button>
+            <button id="reader-close" style="background: #555; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">Fechar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Funções de acessibilidade
+    document.addEventListener('DOMContentLoaded', function() {
+        // Controle de tamanho da fonte
+        document.getElementById('increase-font').addEventListener('click', function() {
+            const currentSize = parseFloat(getComputedStyle(document.body).fontSize);
+            document.body.style.fontSize = (currentSize + 1) + 'px';
+        });
+        
+        document.getElementById('decrease-font').addEventListener('click', function() {
+            const currentSize = parseFloat(getComputedStyle(document.body).fontSize);
+            if (currentSize > 12) {
+                document.body.style.fontSize = (currentSize - 1) + 'px';
+            }
+        });
+        
+        // Modo alto contraste
+        document.getElementById('high-contrast').addEventListener('click', function() {
+            document.body.classList.toggle('high-contrast');
+            localStorage.setItem('highContrast', document.body.classList.contains('high-contrast'));
+        });
+        
+        // Verificar preferência salva
+        if (localStorage.getItem('highContrast') === 'true') {
+            document.body.classList.add('high-contrast');
+        }
+        
+        // Pular para conteúdo
+        document.getElementById('skip-content').addEventListener('click', function() {
+            const mainContent = document.querySelector('.container');
+            mainContent.tabIndex = -1;
+            mainContent.focus();
+        });
+        
+        // Leitor de tela
+        const readerPanel = document.getElementById('screen-reader-panel');
+        const readerText = document.getElementById('reader-text');
+        let speechSynthesis = window.speechSynthesis;
+        let currentUtterance = null;
+        
+        document.getElementById('screen-reader').addEventListener('click', function() {
+            readerPanel.style.display = 'block';
+            readPageContent();
+        });
+        
+        document.getElementById('reader-close').addEventListener('click', function() {
+            readerPanel.style.display = 'none';
+            stopReading();
+        });
+        
+        document.getElementById('reader-play').addEventListener('click', readPageContent);
+        document.getElementById('reader-pause').addEventListener('click', pauseReading);
+        document.getElementById('reader-stop').addEventListener('click', stopReading);
+        
+        function readPageContent() {
+            // Pausa se já estiver lendo
+            if (speechSynthesis.speaking) {
+                speechSynthesis.pause();
+            }
+            
+            // Obtém todo o texto principal da página
+            const mainContent = document.querySelector('.container').innerText;
+            readerText.textContent = mainContent;
+            
+            // Configura a fala
+            currentUtterance = new SpeechSynthesisUtterance(mainContent);
+            currentUtterance.lang = 'pt-BR';
+            currentUtterance.rate = 1;
+            currentUtterance.pitch = 1;
+            
+            // Evento quando terminar de ler
+            currentUtterance.onend = function() {
+                readerText.textContent = "Leitura concluída.";
+            };
+            
+            // Inicia a leitura
+            speechSynthesis.speak(currentUtterance);
+        }
+        
+        function pauseReading() {
+            if (speechSynthesis.speaking) {
+                speechSynthesis.pause();
+                readerText.textContent = "Leitura pausada.";
+            }
+        }
+        
+        function stopReading() {
+            speechSynthesis.cancel();
+            readerText.textContent = "Leitura interrompida.";
+        }
+    });
+</script>
+</body>
+</html>

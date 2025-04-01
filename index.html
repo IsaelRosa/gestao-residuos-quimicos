@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Resíduos Químicos</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .logo img {
+            height: 60px;
+            margin-right: 15px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+        
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 2rem;
+        }
+        
+        .topic-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .topic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .topic-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .topic-content {
+            padding: 1.5rem;
+        }
+        
+        .topic-content h3 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .topic-content p {
+            margin-bottom: 1rem;
+            color: #555;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .emergency {
+            background-color: var(--accent-color);
+        }
+        
+        .emergency:hover {
+            background-color: #c0392b;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .search-bar {
+            display: flex;
+            margin: 1rem auto;
+            max-width: 600px;
+        }
+        
+        .search-bar input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            font-size: 1rem;
+        }
+        
+        .search-bar button {
+            padding: 0.8rem 1.2rem;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .topics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+		<!-- Barra de Acessibilidade -->
+<div class="accessibility-bar">
+    <button id="increase-font" title="Aumentar fonte" aria-label="Aumentar tamanho da fonte">A+</button>
+    <button id="decrease-font" title="Diminuir fonte" aria-label="Diminuir tamanho da fonte">A-</button>
+    <button id="high-contrast" title="Alto contraste" aria-label="Alternar modo de alto contraste">Alto Contraste</button>
+    <button id="screen-reader" title="Ler conteúdo" aria-label="Ativar leitor de tela">Leitor de Tela</button>
+    <button id="skip-content" title="Pular para conteúdo" aria-label="Pular para conteúdo principal">Pular para Conteúdo</button>
+</div>
+
+<style>
+    /* Estilos da barra de acessibilidade */
+    .accessibility-bar {
+        background-color: #333;
+        padding: 0.5rem;
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.5rem;
+    }
+    
+    .accessibility-bar button {
+        background-color: #444;
+        color: white;
+        border: none;
+        padding: 0.3rem 0.6rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.9rem;
+    }
+    
+    .accessibility-bar button:hover {
+        background-color: #555;
+    }
+    
+    /* Estilos para alto contraste */
+    .high-contrast {
+        background-color: #000 !important;
+        color: #fff !important;
+    }
+    
+    .high-contrast a {
+        color: #ffff00 !important;
+    }
+    
+    .high-contrast .content-section {
+        border: 2px solid #fff !important;
+    }
+</style>
+        <div class="logo">
+            <img src="https://cdn-icons-png.flaticon.com/512/3063/3063187.png" alt="Ícone de Química">
+            <h1>Gestão de Resíduos Químicos</h1>
+        </div>
+        <p>Informações e procedimentos para manipulação segura de produtos químicos</p>
+    </header>
+    
+    <div class="container">
+        <div class="search-bar">
+            <input type="text" placeholder="Pesquise por informações sobre resíduos químicos...">
+            <button>Buscar</button>
+        </div>
+        
+        <h2>Principais Tópicos</h2>
+        <div class="topics-grid">
+            <!-- Tópico 1 -->
+            <div class="topic-card" onclick="location.href='gestao.html'">
+                <img src="https://images.unsplash.com/photo-1603126857599-f6e157fa2fe6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Gestão de Resíduos">
+                <div class="topic-content">
+                    <h3>1. Gestão de Resíduos Químicos</h3>
+                    <p>Conheça os procedimentos adequados para o gerenciamento de resíduos químicos em laboratórios e indústrias.</p>
+                    <a href="gestao.html" class="btn">Saiba Mais</a>
+                </div>
+            </div>
+            
+            <!-- Tópico 2 -->
+            <div class="topic-card" onclick="location.href='recolhimento.html'">
+                <img src="https://images.unsplash.com/photo-1581093196271-cb3a53c5b7f2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Solicitação de Recolhimento">
+                <div class="topic-content">
+                    <h3>2. Solicitação de Recolhimento</h3>
+                    <p>Passo a passo para solicitar o recolhimento de resíduos químicos de forma segura e conforme a legislação.</p>
+                    <a href="recolhimento.html" class="btn">Saiba Mais</a>
+                </div>
+            </div>
+            
+            <!-- Tópico 3 -->
+            <div class="topic-card" onclick="location.href='primeiros-socorros.html'">
+                <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Primeiros Socorros">
+                <div class="topic-content">
+                    <h3>3. Primeiros Socorros</h3>
+                    <p>Procedimentos de emergência para acidentes com reagentes químicos. Saiba como agir rapidamente.</p>
+                    <a href="primeiros-socorros.html" class="btn emergency">Ver Emergência</a>
+                </div>
+            </div>
+            
+            <!-- Tópico 4 -->
+            <div class="topic-card" onclick="location.href='armazenamento.html'">
+                <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Armazenamento">
+                <div class="topic-content">
+                    <h3>4. Armazenamento de Reagentes</h3>
+                    <p>Guia completo para armazenar reagentes químicos de acordo com suas classes e compatibilidades.</p>
+                    <a href="armazenamento.html" class="btn">Saiba Mais</a>
+                </div>
+            </div>
+            
+            <!-- Tópico 5 -->
+            <div class="topic-card" onclick="location.href='epi-epc.html'">
+                <img src="https://images.unsplash.com/photo-1584634731339-252c58ab7454?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="EPI e EPC">
+                <div class="topic-content">
+                    <h3>5. EPI e EPC em Laboratórios</h3>
+                    <p>Equipamentos de Proteção Individual e Coletiva necessários para trabalhar com produtos químicos.</p>
+                    <a href="epi-epc.html" class="btn">Saiba Mais</a>
+                </div>
+            </div>
+            
+            <!-- Tópico 6 -->
+            <div class="topic-card" onclick="location.href='telefones.html'">
+                <img src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Telefones de Emergência">
+                <div class="topic-content">
+                    <h3>6. Telefones de Emergência</h3>
+                    <p>Lista de contatos essenciais para situações de emergência com produtos químicos.</p>
+                    <a href="telefones.html" class="btn emergency">Contatos</a>
+                </div>
+            </div>
+            
+            <!-- Tópico extra 7 -->
+            <div class="topic-card" onclick="location.href='legislacao.html'">
+                <img src="https://images.unsplash.com/photo-1559329007-40df8a9345d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Legislação">
+                <div class="topic-content">
+                    <h3>7. Legislação Ambiental</h3>
+                    <p>Principais leis e normas que regulamentam o descarte de resíduos químicos no Brasil.</p>
+                    <a href="legislacao.html" class="btn">Saiba Mais</a>
+                </div>
+            </div>
+            
+            <!-- Tópico extra 8 -->
+            <div class="topic-card" onclick="location.href='classificacao.html'">
+                <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Classificação">
+                <div class="topic-content">
+                    <h3>8. Classificação de Resíduos</h3>
+                    <p>Entenda como os resíduos químicos são classificados e quais os riscos associados a cada classe.</p>
+                    <a href="classificacao.html" class="btn">Saiba Mais</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2023 Sistema de Gestão de Resíduos Químicos | Desenvolvido para segurança laboratorial</p>
+        <p>Em caso de emergência, ligue: <strong>192 (Bombeiros) | 193 (SAMU)</strong></p>
+    </footer>
+    
+    <script>
+        // Simples interação de busca
+        document.querySelector('.search-bar button').addEventListener('click', function() {
+            const searchTerm = document.querySelector('.search-bar input').value.toLowerCase();
+            if (searchTerm.includes('emergência') || searchTerm.includes('socorro') || searchTerm.includes('acidente')) {
+                window.location.href = 'primeiros-socorros.html';
+            } else if (searchTerm.includes('recolhimento') || searchTerm.includes('coleta')) {
+                window.location.href = 'recolhimento.html';
+            } else if (searchTerm.includes('armazenamento') || searchTerm.includes('estoque')) {
+                window.location.href = 'armazenamento.html';
+            } else {
+                alert('Use termos como "emergência", "recolhimento" ou "armazenamento" para uma busca direcionada.');
+            }
+        });
+        
+        // Permitir busca com Enter
+        document.querySelector('.search-bar input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.querySelector('.search-bar button').click();
+            }
+        });
+    </script>
+	<!-- Leitor de Tela -->
+<div id="screen-reader-panel" style="display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: #333; color: white; padding: 1rem; z-index: 1000;">
+    <div style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto;">
+        <div id="reader-text" style="flex-grow: 1; margin-right: 1rem;"></div>
+        <div>
+            <button id="reader-play" style="background: #4CAF50; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">▶</button>
+            <button id="reader-pause" style="background: #f39c12; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">⏸</button>
+            <button id="reader-stop" style="background: #e74c3c; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">⏹</button>
+            <button id="reader-close" style="background: #555; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">Fechar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Funções de acessibilidade
+    document.addEventListener('DOMContentLoaded', function() {
+        // Controle de tamanho da fonte
+        document.getElementById('increase-font').addEventListener('click', function() {
+            const currentSize = parseFloat(getComputedStyle(document.body).fontSize);
+            document.body.style.fontSize = (currentSize + 1) + 'px';
+        });
+        
+        document.getElementById('decrease-font').addEventListener('click', function() {
+            const currentSize = parseFloat(getComputedStyle(document.body).fontSize);
+            if (currentSize > 12) {
+                document.body.style.fontSize = (currentSize - 1) + 'px';
+            }
+        });
+        
+        // Modo alto contraste
+        document.getElementById('high-contrast').addEventListener('click', function() {
+            document.body.classList.toggle('high-contrast');
+            localStorage.setItem('highContrast', document.body.classList.contains('high-contrast'));
+        });
+        
+        // Verificar preferência salva
+        if (localStorage.getItem('highContrast') === 'true') {
+            document.body.classList.add('high-contrast');
+        }
+        
+        // Pular para conteúdo
+        document.getElementById('skip-content').addEventListener('click', function() {
+            const mainContent = document.querySelector('.container');
+            mainContent.tabIndex = -1;
+            mainContent.focus();
+        });
+        
+        // Leitor de tela
+        const readerPanel = document.getElementById('screen-reader-panel');
+        const readerText = document.getElementById('reader-text');
+        let speechSynthesis = window.speechSynthesis;
+        let currentUtterance = null;
+        
+        document.getElementById('screen-reader').addEventListener('click', function() {
+            readerPanel.style.display = 'block';
+            readPageContent();
+        });
+        
+        document.getElementById('reader-close').addEventListener('click', function() {
+            readerPanel.style.display = 'none';
+            stopReading();
+        });
+        
+        document.getElementById('reader-play').addEventListener('click', readPageContent);
+        document.getElementById('reader-pause').addEventListener('click', pauseReading);
+        document.getElementById('reader-stop').addEventListener('click', stopReading);
+        
+        function readPageContent() {
+            // Pausa se já estiver lendo
+            if (speechSynthesis.speaking) {
+                speechSynthesis.pause();
+            }
+            
+            // Obtém todo o texto principal da página
+            const mainContent = document.querySelector('.container').innerText;
+            readerText.textContent = mainContent;
+            
+            // Configura a fala
+            currentUtterance = new SpeechSynthesisUtterance(mainContent);
+            currentUtterance.lang = 'pt-BR';
+            currentUtterance.rate = 1;
+            currentUtterance.pitch = 1;
+            
+            // Evento quando terminar de ler
+            currentUtterance.onend = function() {
+                readerText.textContent = "Leitura concluída.";
+            };
+            
+            // Inicia a leitura
+            speechSynthesis.speak(currentUtterance);
+        }
+        
+        function pauseReading() {
+            if (speechSynthesis.speaking) {
+                speechSynthesis.pause();
+                readerText.textContent = "Leitura pausada.";
+            }
+        }
+        
+        function stopReading() {
+            speechSynthesis.cancel();
+            readerText.textContent = "Leitura interrompida.";
+        }
+    });
+</script>
+<script src="accessibility.js"></script>
+</body>
+</html>

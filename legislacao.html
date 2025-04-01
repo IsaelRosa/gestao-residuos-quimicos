@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legislação Ambiental para Resíduos Químicos</title>
+    <!-- Mesmo estilo da página anterior -->
+    <style>
+        /* Manter o mesmo estilo da página gestao.html */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .logo img {
+            height: 60px;
+            margin-right: 15px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .emergency {
+            background-color: var(--accent-color);
+        }
+        
+        .emergency:hover {
+            background-color: #c0392b;
+        }
+        
+        .content-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .content-section:hover {
+            transform: translateY(-5px);
+        }
+        
+        .content-section h2 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+        }
+        
+        .content-section h3 {
+            color: var(--primary-color);
+            margin: 1.5rem 0 0.5rem;
+        }
+        
+        .content-section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1rem 0;
+            display: block;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .steps {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .steps li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .steps li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+        }
+        
+        .info-box {
+            background-color: #e7f5ff;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .info-box:hover {
+            background-color: #d0ebff;
+        }
+        
+        .warning-box {
+            background-color: #fff3bf;
+            border-left: 4px solid #ffd43b;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .danger-box {
+            background-color: #ffc9c9;
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        
+        .law-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .law-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .law-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .law-card .law-number {
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin: 0.5rem 0;
+        }
+        
+        .law-card .law-description {
+            margin: 0.5rem 0;
+        }
+        
+        .law-card .law-link {
+            display: inline-block;
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+        
+        .law-card .law-link:hover {
+            text-decoration: underline;
+        }
+        
+        .floating-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--accent-color);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        
+        .floating-btn:hover {
+            transform: scale(1.1);
+            background-color: #c0392b;
+        }
+        
+        .search-container {
+            margin: 1.5rem 0;
+        }
+        
+        .search-container input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .floating-btn {
+                bottom: 1rem;
+                right: 1rem;
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+<!-- Barra de Acessibilidade -->
+<div class="accessibility-bar">
+    <button id="increase-font" title="Aumentar fonte" aria-label="Aumentar tamanho da fonte">A+</button>
+    <button id="decrease-font" title="Diminuir fonte" aria-label="Diminuir tamanho da fonte">A-</button>
+    <button id="high-contrast" title="Alto contraste" aria-label="Alternar modo de alto contraste">Alto Contraste</button>
+    <button id="screen-reader" title="Ler conteúdo" aria-label="Ativar leitor de tela">Leitor de Tela</button>
+    <button id="skip-content" title="Pular para conteúdo" aria-label="Pular para conteúdo principal">Pular para Conteúdo</button>
+</div>
+
+<style>
+    /* Estilos da barra de acessibilidade */
+    .accessibility-bar {
+        background-color: #333;
+        padding: 0.5rem;
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.5rem;
+    }
+    
+    .accessibility-bar button {
+        background-color: #444;
+        color: white;
+        border: none;
+        padding: 0.3rem 0.6rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.9rem;
+    }
+    
+    .accessibility-bar button:hover {
+        background-color: #555;
+    }
+    
+    /* Estilos para alto contraste */
+    .high-contrast {
+        background-color: #000 !important;
+        color: #fff !important;
+    }
+    
+    .high-contrast a {
+        color: #ffff00 !important;
+    }
+    
+    .high-contrast .content-section {
+        border: 2px solid #fff !important;
+    }
+</style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="https://cdn-icons-png.flaticon.com/512/3063/3063187.png" alt="Ícone de Química">
+            <h1>Legislação Ambiental para Resíduos Químicos</h1>
+        </div>
+        <p>Principais leis e normas que regulamentam o descarte de resíduos químicos no Brasil</p>
+    </header>
+    
+    <div class="container">
+        <a href="index.html" class="btn back-btn">← Voltar para a página principal</a>
+        
+        <div class="content-section">
+            <h2>Legislação Federal</h2>
+            <img src="https://images.unsplash.com/photo-1559329007-40df8a9345d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Legislação">
+            
+            <div class="info-box">
+                <p>O gerenciamento de resíduos químicos no Brasil é regulamentado por diversas leis federais. O não cumprimento pode acarretar em multas e responsabilização criminal.</p>
+            </div>
+            
+            <div class="law-card">
+                <h4>Política Nacional de Resíduos Sólidos</h4>
+                <div class="law-number">Lei nº 12.305/2010</div>
+                <div class="law-description">
+                    <p>Institui a Política Nacional de Resíduos Sólidos, estabelecendo princípios, objetivos e instrumentos para a gestão integrada e o gerenciamento ambientalmente adequado dos resíduos sólidos.</p>
+                    <p><strong>Aplicação:</strong> Todos os geradores de resíduos, incluindo resíduos químicos.</p>
+                </div>
+                <a href="http://www.planalto.gov.br/ccivil_03/_ato2007-2010/2010/lei/l12305.htm" class="law-link" target="_blank">Ver texto completo →</a>
+            </div>
+            
+            <div class="law-card">
+                <h4>Classificação de Resíduos</h4>
+                <div class="law-number">NBR 10.004/2004 da ABNT</div>
+                <div class="law-description">
+                    <p>Define os critérios para classificação de resíduos sólidos quanto aos seus riscos potenciais ao meio ambiente e à saúde pública.</p>
+                    <p><strong>Aplicação:</strong> Classificação obrigatória de todos os resíduos gerados, incluindo os perigosos (Classe I).</p>
+                </div>
+                <a href="https://www.abnt.org.br/" class="law-link" target="_blank">Consultar norma →</a>
+            </div>
+            
+            <div class="law-card">
+                <h4>Transporte de Produtos Perigosos</h4>
+                <div class="law-number">Resolução ANTT nº 5.232/2016</div>
+                <div class="law-description">
+                    <p>Dispõe sobre o transporte terrestre de produtos perigosos e a obrigatoriedade do Manifesto de Transporte de Resíduos (MTR).</p>
+                    <p><strong>Aplicação:</strong> Todo transporte de resíduos químicos perigosos.</p>
+                </div>
+                <a href="https://www.gov.br/antt/pt-br/assuntos/noticias/antt-publica-nova-resolucao-para-transporte-de-produtos-perigosos" class="law-link" target="_blank">Ver resolução →</a>
+            </div>
+            
+            <div class="law-card">
+                <h4>Licenciamento Ambiental</h4>
+                <div class="law-number">Resolução CONAMA nº 237/1997</div>
+                <div class="law-description">
+                    <p>Estabelece critérios para o licenciamento ambiental de atividades potencialmente poluidoras, incluindo laboratórios que manipulam produtos químicos.</p>
+                    <p><strong>Aplicação:</strong> Laboratórios, indústrias e outras atividades geradoras de resíduos químicos.</p>
+                </div>
+                <a href="http://www2.mma.gov.br/port/conama/res/res97/res23797.html" class="law-link" target="_blank">Ver resolução →</a>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h2>Legislação Estadual e Municipal</h2>
+            <div class="warning-box">
+                <p><strong>Atenção:</strong> Além da legislação federal, cada estado e município pode ter normas específicas sobre resíduos químicos. Consulte sempre os órgãos ambientais locais.</p>
+            </div>
+            
+            <div class="law-card">
+                <h4>Exemplo: Licença para Operação</h4>
+                <div class="law-number">[Inserir norma estadual]</div>
+                <div class="law-description">
+                    <p>Descrição da legislação estadual aplicável ao seu estado sobre licenciamento para operação de laboratórios químicos.</p>
+                    <p><strong>Aplicação:</strong> Laboratórios no estado específico.</p>
+                </div>
+                <a href="#" class="law-link" target="_blank">Ver legislação local →</a>
+            </div>
+            
+            <div class="law-card">
+                <h4>Exemplo: Taxas Ambientais</h4>
+                <div class="law-number">[Inserir norma municipal]</div>
+                <div class="law-description">
+                    <p>Descrição da legislação municipal aplicável à sua cidade sobre taxas para geração de resíduos químicos.</p>
+                    <p><strong>Aplicação:</strong> Geradores de resíduos no município específico.</p>
+                </div>
+                <a href="#" class="law-link" target="_blank">Ver legislação local →</a>
+            </div>
+            
+            <div class="info-box">
+                <p>Para encontrar a legislação específica do seu estado e município, consulte:</p>
+                <ul class="steps">
+                    <li>Secretaria Estadual de Meio Ambiente</li>
+                    <li>Secretaria Municipal de Meio Ambiente</li>
+                    <li>Órgão ambiental licenciador local</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h2>Normas Técnicas Aplicáveis</h2>
+            <p>Além da legislação, diversas normas técnicas regulamentam aspectos específicos do manejo de resíduos químicos:</p>
+            
+            <div class="law-card">
+                <h4>Armazenamento de Resíduos</h4>
+                <div class="law-number">NBR 11.174/1990 da ABNT</div>
+                <div class="law-description">
+                    <p>Estabelece requisitos para armazenamento de resíduos perigosos, incluindo químicos.</p>
+                </div>
+                <a href="https://www.abnt.org.br/" class="law-link" target="_blank">Consultar norma →</a>
+            </div>
+            
+            <div class="law-card">
+                <h4>Sistema de Gestão Ambiental</h4>
+                <div class="law-number">ISO 14.001</div>
+                <div class="law-description">
+                    <p>Norma internacional para sistemas de gestão ambiental, incluindo gestão de resíduos.</p>
+                </div>
+                <a href="https://www.iso.org/iso-14001-environmental-management.html" class="law-link" target="_blank">Consultar norma →</a>
+            </div>
+            
+            <div class="law-card">
+                <h4>Ficha de Emergência</h4>
+                <div class="law-number">NBR 7.503/2011 da ABNT</div>
+                <div class="law-description">
+                    <p>Especifica os requisitos para elaboração de ficha de emergência para transporte de produtos perigosos.</p>
+                </div>
+                <a href="https://www.abnt.org.br/" class="law-link" target="_blank">Consultar norma →</a>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h2>Pesquisar Legislação</h2>
+            <div class="search-container">
+                <input type="text" id="search-law" placeholder="Pesquisar por palavra-chave (ex: 'resíduos perigosos', 'transporte', etc.)">
+                <button class="btn" style="margin-top: 0.5rem;" onclick="searchLegislation()">Buscar</button>
+            </div>
+            
+            <div id="search-results" style="display: none;">
+                <h4>Resultados da Busca:</h4>
+                <div id="results-list"></div>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h2>Atualizações Legislativas</h2>
+            <div class="info-box">
+                <p>Assine nossa newsletter para receber atualizações sobre mudanças na legislação de resíduos químicos:</p>
+                <form id="newsletter-form">
+                    <input type="email" placeholder="Seu e-mail" required style="width: 100%; padding: 0.8rem; margin: 0.5rem 0; border: 1px solid #ddd; border-radius: 4px;">
+                    <button type="submit" class="btn">Assinar Newsletter</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <a href="telefones.html" class="floating-btn">!</a>
+    
+    <footer>
+        <p>© 2023 Sistema de Gestão de Resíduos Químicos | Desenvolvido para segurança laboratorial</p>
+        <p>Em caso de emergência, ligue: <strong>192 (SAMU) | 193 (Bombeiros)</strong></p>
+    </footer>
+    
+    <script>
+        // Banco de dados de legislação para busca
+        const legislationDB = [
+            {
+                title: "Política Nacional de Resíduos Sólidos",
+                number: "Lei nº 12.305/2010",
+                keywords: ["resíduos sólidos", "PNRS", "gestão integrada", "logística reversa"],
+                description: "Institui a Política Nacional de Resíduos Sólidos, estabelecendo a responsabilidade compartilhada pelo ciclo de vida dos produtos."
+            },
+            {
+                title: "Classificação de Resíduos",
+                number: "NBR 10.004/2004",
+                keywords: ["classificação", "resíduos perigosos", "Classe I", "ABNT"],
+                description: "Norma técnica que classifica resíduos sólidos quanto aos seus riscos potenciais ao meio ambiente e à saúde pública."
+            },
+            {
+                title: "Transporte de Produtos Perigosos",
+                number: "Resolução ANTT nº 5.232/2016",
+                keywords: ["transporte", "produtos perigosos", "MTR", "manifesto"],
+                description: "Regulamenta o transporte terrestre de produtos perigosos e a obrigatoriedade do Manifesto de Transporte de Resíduos."
+            },
+            {
+                title: "Licenciamento Ambiental",
+                number: "Resolução CONAMA nº 237/1997",
+                keywords: ["licenciamento", "CONAMA", "atividades poluidoras", "laboratórios"],
+                description: "Estabelece critérios para o licenciamento ambiental de atividades potencialmente poluidoras."
+            }
+        ];
+        
+        function searchLegislation() {
+            const searchTerm = document.getElementById("search-law").value.toLowerCase();
+            const resultsDiv = document.getElementById("results-list");
+            const resultsContainer = document.getElementById("search-results");
+            
+            if (!searchTerm) {
+                alert("Por favor, digite um termo para buscar.");
+                return;
+            }
+            
+            resultsDiv.innerHTML = "";
+            let hasResults = false;
+            
+            legislationDB.forEach(law => {
+                const matches = law.keywords.some(keyword => keyword.includes(searchTerm)) ||
+                                law.title.toLowerCase().includes(searchTerm) ||
+                                law.number.toLowerCase().includes(searchTerm) ||
+                                law.description.toLowerCase().includes(searchTerm);
+                
+                if (matches) {
+                    const lawElement = document.createElement("div");
+                    lawElement.className = "law-card";
+                    lawElement.innerHTML = `
+                        <h4>${law.title}</h4>
+                        <div class="law-number">${law.number}</div>
+                        <div class="law-description">
+                            <p>${law.description}</p>
+                        </div>
+                    `;
+                    resultsDiv.appendChild(lawElement);
+                    hasResults = true;
+                }
+            });
+            
+            if (hasResults) {
+                resultsContainer.style.display = "block";
+            } else {
+                resultsDiv.innerHTML = "<p>Nenhuma legislação encontrada com o termo pesquisado.</p>";
+                resultsContainer.style.display = "block";
+            }
+        }
+        
+        // Newsletter form
+        document.getElementById("newsletter-form").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const email = this.querySelector("input[type='email']").value;
+            alert(`Obrigado por assinar nossa newsletter! Um e-mail de confirmação foi enviado para ${email}`);
+            this.reset();
+        });
+        
+        // Tooltip para o botão flutuante
+        const floatingBtn = document.querySelector(".floating-btn");
+        floatingBtn.addEventListener("mouseover", function() {
+            this.setAttribute("title", "Emergência - Telefones Úteis");
+        });
+    </script>
+<!-- Leitor de Tela -->
+<div id="screen-reader-panel" style="display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: #333; color: white; padding: 1rem; z-index: 1000;">
+    <div style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto;">
+        <div id="reader-text" style="flex-grow: 1; margin-right: 1rem;"></div>
+        <div>
+            <button id="reader-play" style="background: #4CAF50; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">▶</button>
+            <button id="reader-pause" style="background: #f39c12; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">⏸</button>
+            <button id="reader-stop" style="background: #e74c3c; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">⏹</button>
+            <button id="reader-close" style="background: #555; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">Fechar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Funções de acessibilidade
+    document.addEventListener('DOMContentLoaded', function() {
+        // Controle de tamanho da fonte
+        document.getElementById('increase-font').addEventListener('click', function() {
+            const currentSize = parseFloat(getComputedStyle(document.body).fontSize);
+            document.body.style.fontSize = (currentSize + 1) + 'px';
+        });
+        
+        document.getElementById('decrease-font').addEventListener('click', function() {
+            const currentSize = parseFloat(getComputedStyle(document.body).fontSize);
+            if (currentSize > 12) {
+                document.body.style.fontSize = (currentSize - 1) + 'px';
+            }
+        });
+        
+        // Modo alto contraste
+        document.getElementById('high-contrast').addEventListener('click', function() {
+            document.body.classList.toggle('high-contrast');
+            localStorage.setItem('highContrast', document.body.classList.contains('high-contrast'));
+        });
+        
+        // Verificar preferência salva
+        if (localStorage.getItem('highContrast') === 'true') {
+            document.body.classList.add('high-contrast');
+        }
+        
+        // Pular para conteúdo
+        document.getElementById('skip-content').addEventListener('click', function() {
+            const mainContent = document.querySelector('.container');
+            mainContent.tabIndex = -1;
+            mainContent.focus();
+        });
+        
+        // Leitor de tela
+        const readerPanel = document.getElementById('screen-reader-panel');
+        const readerText = document.getElementById('reader-text');
+        let speechSynthesis = window.speechSynthesis;
+        let currentUtterance = null;
+        
+        document.getElementById('screen-reader').addEventListener('click', function() {
+            readerPanel.style.display = 'block';
+            readPageContent();
+        });
+        
+        document.getElementById('reader-close').addEventListener('click', function() {
+            readerPanel.style.display = 'none';
+            stopReading();
+        });
+        
+        document.getElementById('reader-play').addEventListener('click', readPageContent);
+        document.getElementById('reader-pause').addEventListener('click', pauseReading);
+        document.getElementById('reader-stop').addEventListener('click', stopReading);
+        
+        function readPageContent() {
+            // Pausa se já estiver lendo
+            if (speechSynthesis.speaking) {
+                speechSynthesis.pause();
+            }
+            
+            // Obtém todo o texto principal da página
+            const mainContent = document.querySelector('.container').innerText;
+            readerText.textContent = mainContent;
+            
+            // Configura a fala
+            currentUtterance = new SpeechSynthesisUtterance(mainContent);
+            currentUtterance.lang = 'pt-BR';
+            currentUtterance.rate = 1;
+            currentUtterance.pitch = 1;
+            
+            // Evento quando terminar de ler
+            currentUtterance.onend = function() {
+                readerText.textContent = "Leitura concluída.";
+            };
+            
+            // Inicia a leitura
+            speechSynthesis.speak(currentUtterance);
+        }
+        
+        function pauseReading() {
+            if (speechSynthesis.speaking) {
+                speechSynthesis.pause();
+                readerText.textContent = "Leitura pausada.";
+            }
+        }
+        
+        function stopReading() {
+            speechSynthesis.cancel();
+            readerText.textContent = "Leitura interrompida.";
+        }
+    });
+</script>
+</body>
+<script src="accessibility.js"></script>
+</html>

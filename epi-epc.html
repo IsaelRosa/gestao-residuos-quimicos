@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EPIs e EPCs para Laboratórios Químicos</title>
+    <!-- Mesmo estilo da página anterior -->
+    <style>
+        /* Manter o mesmo estilo da página gestao.html */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .logo img {
+            height: 60px;
+            margin-right: 15px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .emergency {
+            background-color: var(--accent-color);
+        }
+        
+        .emergency:hover {
+            background-color: #c0392b;
+        }
+        
+        .content-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .content-section:hover {
+            transform: translateY(-5px);
+        }
+        
+        .content-section h2 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+        }
+        
+        .content-section h3 {
+            color: var(--primary-color);
+            margin: 1.5rem 0 0.5rem;
+        }
+        
+        .content-section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1rem 0;
+            display: block;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .steps {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .steps li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .steps li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+        }
+        
+        .info-box {
+            background-color: #e7f5ff;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .info-box:hover {
+            background-color: #d0ebff;
+        }
+        
+        .warning-box {
+            background-color: #fff3bf;
+            border-left: 4px solid #ffd43b;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .danger-box {
+            background-color: #ffc9c9;
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .equipment-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+        }
+        
+        .equipment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .equipment-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .equipment-content {
+            padding: 1.5rem;
+        }
+        
+        .equipment-content h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .epi-badge {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .epc-badge {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .floating-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--accent-color);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        
+        .floating-btn:hover {
+            transform: scale(1.1);
+            background-color: #c0392b;
+        }
+        
+        .quiz-container {
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        
+        .quiz-question {
+            margin-bottom: 1rem;
+        }
+        
+        .quiz-options {
+            margin-left: 1.5rem;
+        }
+        
+        .quiz-option {
+            margin-bottom: 0.5rem;
+        }
+        
+        .quiz-result {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .equipment-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .floating-btn {
+                bottom: 1rem;
+                right: 1rem;
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+<!-- Barra de Acessibilidade -->
+<div class="accessibility-bar">
+    <button id="increase-font" title="Aumentar fonte" aria-label="Aumentar tamanho da fonte">A+</button>
+    <button id="decrease-font" title="Diminuir fonte" aria-label="Diminuir tamanho da fonte">A-</button>
+    <button id="high-contrast" title="Alto contraste" aria-label="Alternar modo de alto contraste">Alto Contraste</button>
+    <button id="screen-reader" title="Ler conteúdo" aria-label="Ativar leitor de tela">Leitor de Tela</button>
+    <button id="skip-content" title="Pular para conteúdo" aria-label="Pular para conteúdo principal">Pular para Conteúdo</button>
+</div>
+
+<style>
+    /* Estilos da barra de acessibilidade */
+    .accessibility-bar {
+        background-color: #333;
+        padding: 0.5rem;
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.5rem;
+    }
+    
+    .accessibility-bar button {
+        background-color: #444;
+        color: white;
+        border: none;
+        padding: 0.3rem 0.6rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.9rem;
+    }
+    
+    .accessibility-bar button:hover {
+        background-color: #555;
+    }
+    
+    /* Estilos para alto contraste */
+    .high-contrast {
+        background-color: #000 !important;
+        color: #fff !important;
+    }
+    
+    .high-contrast a {
+        color: #ffff00 !important;
+    }
+    
+    .high-contrast .content-section {
+        border: 2px solid #fff !important;
+    }
+</style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="https://cdn-icons-png.flaticon.com/512/3063/3063187.png" alt="Ícone de Química">
+            <h1>EPIs e EPCs para Laboratórios Químicos</h1>
+        </div>
+        <p>Equipamentos de Proteção Individual e Coletiva essenciais</p>
+    </header>
+    
+    <div class="container">
+        <a href="index.html" class="btn back-btn">← Voltar para a página principal</a>
+        
+        <div class="content-section">
+            <h2>Diferença entre EPI e EPC</h2>
+            <img src="https://images.unsplash.com/photo-1584634731339-252c58ab7454?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="EPI e EPC">
+            
+            <div class="info-box">
+                <p><strong>EPI (Equipamento de Proteção Individual):</strong> Dispositivo de uso pessoal destinado a proteger a saúde e integridade física do trabalhador.</p>
+                <p><strong>EPC (Equipamento de Proteção Coletiva):</strong> Dispositivo que protege todos os presentes no ambiente de trabalho contra riscos coletivos.</p>
+            </div>
+            
+            <h3>Quando Usar?</h3>
+            <ul class="steps">
+                <li>EPIs são obrigatórios para todos que adentram o laboratório</li>
+                <li>EPCs devem estar sempre disponíveis e em bom estado de funcionamento</li>
+                <li>Use EPIs adicionais conforme o risco específico da atividade</li>
+            </ul>
+        </div>
+        
+        <div class="content-section">
+            <h2>EPIs Essenciais</h2>
+            <p>Equipamentos de proteção individual básicos para trabalhar com produtos químicos:</p>
+            
+            <div class="equipment-grid">
+                <div class="equipment-card">
+                    <img src="https://images.unsplash.com/photo-1583947581924-a6d4c45db704?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Jaleco">
+                    <div class="equipment-content">
+                        <h4>Jaleco de Proteção</h4>
+                        <span class="epi-badge">EPI</span>
+                        <ul>
+                            <li>Material resistente a produtos químicos</li>
+                            <li>Mangas longas e fechamento frontal</li>
+                            <li>Não usar fora do laboratório</li>
+                            <li>Lavar separadamente de outras roupas</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="equipment-card">
+                    <img src="https://images.unsplash.com/photo-1583947634571-7b1d51cacf1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Óculos de proteção">
+                    <div class="equipment-content">
+                        <h4>Óculos de Proteção</h4>
+                        <span class="epi-badge">EPI</span>
+                        <ul>
+                            <li>Proteção contra respingos químicos</li>
+                            <li>Viseira lateral quando necessário</li>
+                            <li>Não substituir por óculos de grau</li>
+                            <li>Limpar após cada uso</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="equipment-card">
+                    <img src="https://images.unsplash.com/photo-1583947581924-c9a137687856?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Luvas">
+                    <div class="equipment-content">
+                        <h4>Luvas de Proteção</h4>
+                        <span class="epi-badge">EPI</span>
+                        <ul>
+                            <li>Material adequado ao produto manipulado</li>
+                            <li>Verificar resistência química</li>
+                            <li>Inspecionar antes de cada uso</li>
+                            <li>Descartar após contaminação</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="equipment-card">
+                    <img src="https://images.unsplash.com/photo-1583947581924-37b635f9044c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Calçado">
+                    <div class="equipment-content">
+                        <h4>Calçado Fechado</h4>
+                        <span class="epi-badge">EPI</span>
+                        <ul>
+                            <li>Proteção contra derramamentos</li>
+                            <li>Material não poroso</li>
+                            <li>Solado antiderrapante</li>
+                            <li>Não usar sandálias ou sapatos abertos</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="equipment-card">
+                    <img src="https://images.unsplash.com/photo-1583947581924-5a3d3f5b5b0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Máscara">
+                    <div class="equipment-content">
+                        <h4>Proteção Respiratória</h4>
+                        <span class="epi-badge">EPI</span>
+                        <ul>
+                            <li>Máscaras adequadas ao risco</li>
+                            <li>Respiradores para vapores orgânicos quando necessário</li>
+                            <li>Verificar vedação</li>
+                            <li>Substituir filtros conforme recomendação</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="equipment-card">
+                    <img src="https://images.unsplash.com/photo-1583947581924-5a3d3f5b5b0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Avental">
+                    <div class="equipment-content">
+                        <h4>Avental Químico</h4>
+                        <span class="epi-badge">EPI</span>
+                        <ul>
+                            <li>Para manipulação de grandes quantidades</li>
+                            <li>Material resistente a produtos químicos</li>
+                            <li>Cobrir todo o torso e parte das pernas</li>
+                            <li>Inspecionar antes de cada uso</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h2>EPCs Essenciais</h2>
+            <p>Equipamentos de proteção coletiva que devem estar presentes no laboratório:</p>
+            
+            <div class="equipment-grid">
+                <div class="equipment-card">
+                    <img src="https://images.unsplash.com/photo-1583947581924-5a3d3f5b5b0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Chuveiro de emergência">
+                    <div class="equipment-content">
+                        <h4>Chuveiro de Emergência</h4>
+                        <span class="epc-badge">EPC</span>
+                        <ul>
+                            <li>Local de fácil acesso</li>
+                            <li>Água em abundância (15 minutos de fluxo)</li>
+                            <li>Acionamento rápido e fácil</li>
+                            <li>Testar regularmente</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="equipment-card">
+                    <img src="https://images.unsplash.com/photo-1583947581924-5a3d3f5b5b0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Lava-olhos">
+                    <div class="equipment-content">
+                        <h4>Lava-olhos de Emergência</h4>
+                        <span class="epc-badge">EPC</span>
+                        <ul>
+                            <li>Localizado próximo a áreas de risco</li>
+                            <li>Água limpa e corrente</li>
+                            <li>Acionamento fácil com uma mão</li>
+                            <li>Manutenção periódica</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="equipment-card">
+                    <img src="https://images.unsplash.com/photo-1583947581924-5a3d3f5b5b0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Exaustão">
+                    <div class="equipment-content">
+                        <h4>Sistema de Exaustão</h4>
+                        <span class="epc-badge">EPC</span>
+                        <ul>
+                            <li>Capela química para manipulação de voláteis</li>
+                            <li>Ventilação geral adequada</li>
+                            <li>Manutenção regular</li>
+                            <li>Verificar fluxo de ar</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="equipment-card">
+                    <img src="https://images.unsplash.com/photo-1583947581924-5a3d3f5b5b0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Extintor">
+                    <div class="equipment-content">
+                        <h4>Extintor de Incêndio</h4>
+                        <span class="epc-badge">EPC</span>
+                        <ul>
+                            <li>Tipo adequado aos riscos do laboratório</li>
+                            <li>Sinalizado e de fácil acesso</li>
+                            <li>Inspeção periódica</li>
+                            <li>Todos devem saber operar</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="equipment-card">
+                    <img src="https://images.unsplash.com/photo-1583947581924-5a3d3f5b5b0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Kit derramamento">
+                    <div class="equipment-content">
+                        <h4>Kit para Derramamentos</h4>
+                        <span class="epc-badge">EPC</span>
+                        <ul>
+                            <li>Absorventes químicos</li>
+                            <li>Neutralizadores quando aplicável</li>
+                            <li>EPIs para contenção</li>
+                            <li>Instruções de uso visíveis</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="equipment-card">
+                    <img src="https://images.unsplash.com/photo-1583947581924-5a3d3f5b5b0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Sinalização">
+                    <div class="equipment-content">
+                        <h4>Sinalização de Segurança</h4>
+                        <span class="epc-badge">EPC</span>
+                        <ul>
+                            <li>Rótulos e placas de advertência</li>
+                            <li>Identificação de riscos específicos</li>
+                            <li>Rotas de fuga sinalizadas</li>
+                            <li>Telefones de emergência visíveis</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content-section">
+            <h2>Seletor de EPIs por Atividade</h2>
+            <div class="info-box">
+                <p>Selecione o tipo de atividade que você realizará para ver os EPIs recomendados:</p>
+            </div>
+            
+            <div class="form-group">
+                <label for="atividade">Tipo de Atividade</label>
+                <select id="atividade" class="form-control">
+                    <option value="">Selecione uma atividade...</option>
+                    <option value="manipulacao-geral">Manipulação geral de produtos químicos</option>
+                    <option value="solventes">Trabalho com solventes orgânicos</option>
+                    <option value="acidosebases">Manuseio de ácidos/bases concentrados</option>
+                    <option value="toxicosecancerigenos">Manuseio de tóxicos/cancerígenos</option>
+                    <option value="aquecimento">Aquecimento de substâncias</option>
+                    <option value="derramamento">Limpeza de derramamentos</option>
+                </select>
+            </div>
+            
+            <div id="epi-recomendados" style="margin-top: 1rem; display: none;">
+                <h4>EPIs Recomendados:</h4>
+                <ul id="lista-epis"></ul>
+            </div>
+        </div>
+        
+        <div class="content-section quiz-container">
+            <h2>Quiz de EPIs e EPCs</h2>
+            <p>Teste seus conhecimentos sobre equipamentos de proteção:</p>
+            
+            <div class="quiz-question">
+                <p>1. Qual destes itens é considerado um EPC?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option">
+                        <input type="radio" name="q1" id="q1a" value="a">
+                        <label for="q1a">a) Óculos de proteção</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" name="q1" id="q1b" value="b">
+                        <label for="q1b">b) Capela de exaustão</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" name="q1" id="q1c" value="c">
+                        <label for="q1c">c) Luva química</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quiz-question">
+                <p>2. Qual EPI é essencial para qualquer atividade no laboratório?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option">
+                        <input type="radio" name="q2" id="q2a" value="a">
+                        <label for="q2a">a) Avental de chumbo</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" name="q2" id="q2b" value="b">
+                        <label for="q2b">b) Óculos de proteção</label>
+                    </div>
+                    <div class="quiz-option">
+                        <input type="radio" name="q2" id="q2c" value="c">
+                        <label for="q2c">c) Máscara de gás</label>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="btn" onclick="verificarQuiz()">Verificar Respostas</button>
+            
+            <div class="quiz-result" id="quiz-result">
+                <h4>Resultado:</h4>
+                <p id="quiz-score"></p>
+            </div>
+        </div>
+    </div>
+    
+    <a href="telefones.html" class="floating-btn">!</a>
+    
+    <footer>
+        <p>© 2023 Sistema de Gestão de Resíduos Químicos | Desenvolvido para segurança laboratorial</p>
+        <p>Em caso de emergência, ligue: <strong>192 (SAMU) | 193 (Bombeiros)</strong></p>
+    </footer>
+    
+    <script>
+        // Seletor de EPIs por atividade
+        const episPorAtividade = {
+            "manipulacao-geral": ["Jaleco de proteção", "Óculos de segurança", "Luvas adequadas", "Calçado fechado"],
+            "solventes": ["Jaleco de proteção", "Óculos de segurança", "Luvas resistentes a solventes", "Proteção respiratória se necessário", "Avental químico para grandes volumes"],
+            "acidosebases": ["Jaleco de proteção", "Óculos de segurança com proteção lateral", "Luvas resistentes a ácidos/bases", "Avental químico", "Calçado fechado e resistente"],
+            "toxicosecancerigenos": ["Jaleco de proteção descartável", "Óculos de segurança", "Luvas específicas", "Proteção respiratória adequada", "Avental descartável"],
+            "aquecimento": ["Jaleco de proteção", "Óculos de segurança", "Luvas térmicas", "Protetor facial para trabalhos com risco de projeção"],
+            "derramamento": ["Avental químico", "Óculos de segurança", "Luvas resistentes", "Botas de proteção", "Proteção respiratória se necessário"]
+        };
+        
+        document.getElementById("atividade").addEventListener("change", function() {
+            const atividade = this.value;
+            const listaEPIs = document.getElementById("lista-epis");
+            const divRecomendados = document.getElementById("epi-recomendados");
+            
+            if (!atividade) {
+                divRecomendados.style.display = "none";
+                return;
+            }
+            
+            listaEPIs.innerHTML = "";
+            episPorAtividade[atividade].forEach(epi => {
+                const li = document.createElement("li");
+                li.textContent = epi;
+                listaEPIs.appendChild(li);
+            });
+            
+            divRecomendados.style.display = "block";
+        });
+        
+        // Sistema de quiz
+        function verificarQuiz() {
+            const respostasCorretas = {
+                q1: "b",
+                q2: "b"
+            };
+            
+            let acertos = 0;
+            
+            // Verificar Q1
+            const q1Selected = document.querySelector('input[name="q1"]:checked');
+            if (q1Selected && q1Selected.value === respostasCorretas.q1) {
+                acertos++;
+            }
+            
+            // Verificar Q2
+            const q2Selected = document.querySelector('input[name="q2"]:checked');
+            if (q2Selected && q2Selected.value === respostasCorretas.q2) {
+                acertos++;
+            }
+            
+            // Mostrar resultado
+            const resultadoDiv = document.getElementById("quiz-result");
+            const scoreP = document.getElementById("quiz-score");
+            
+            resultadoDiv.style.display = "block";
+            scoreP.textContent = `Você acertou ${acertos} de 2 perguntas.`;
+            
+            if (acertos === 2) {
+                resultadoDiv.style.backgroundColor = "#d4edda";
+                scoreP.innerHTML += " <strong>Excelente! Você demonstrou bom conhecimento sobre EPIs e EPCs.</strong>";
+            } else if (acertos === 1) {
+                resultadoDiv.style.backgroundColor = "#fff3cd";
+                scoreP.innerHTML += " <strong>Bom, mas você pode melhorar. Revise as informações nesta página.</strong>";
+            } else {
+                resultadoDiv.style.backgroundColor = "#f8d7da";
+                scoreP.innerHTML += " <strong>Recomendamos estudar mais sobre EPIs e EPCs antes de trabalhar no laboratório.</strong>";
+            }
+        }
+        
+        // Tooltip para o botão flutuante
+        const floatingBtn = document.querySelector(".floating-btn");
+        floatingBtn.addEventListener("mouseover", function() {
+            this.setAttribute("title", "Emergência - Telefones Úteis");
+        });
+    </script>
+<!-- Leitor de Tela -->
+<div id="screen-reader-panel" style="display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: #333; color: white; padding: 1rem; z-index: 1000;">
+    <div style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto;">
+        <div id="reader-text" style="flex-grow: 1; margin-right: 1rem;"></div>
+        <div>
+            <button id="reader-play" style="background: #4CAF50; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">▶</button>
+            <button id="reader-pause" style="background: #f39c12; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">⏸</button>
+            <button id="reader-stop" style="background: #e74c3c; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">⏹</button>
+            <button id="reader-close" style="background: #555; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">Fechar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Funções de acessibilidade
+    document.addEventListener('DOMContentLoaded', function() {
+        // Controle de tamanho da fonte
+        document.getElementById('increase-font').addEventListener('click', function() {
+            const currentSize = parseFloat(getComputedStyle(document.body).fontSize);
+            document.body.style.fontSize = (currentSize + 1) + 'px';
+        });
+        
+        document.getElementById('decrease-font').addEventListener('click', function() {
+            const currentSize = parseFloat(getComputedStyle(document.body).fontSize);
+            if (currentSize > 12) {
+                document.body.style.fontSize = (currentSize - 1) + 'px';
+            }
+        });
+        
+        // Modo alto contraste
+        document.getElementById('high-contrast').addEventListener('click', function() {
+            document.body.classList.toggle('high-contrast');
+            localStorage.setItem('highContrast', document.body.classList.contains('high-contrast'));
+        });
+        
+        // Verificar preferência salva
+        if (localStorage.getItem('highContrast') === 'true') {
+            document.body.classList.add('high-contrast');
+        }
+        
+        // Pular para conteúdo
+        document.getElementById('skip-content').addEventListener('click', function() {
+            const mainContent = document.querySelector('.container');
+            mainContent.tabIndex = -1;
+            mainContent.focus();
+        });
+        
+        // Leitor de tela
+        const readerPanel = document.getElementById('screen-reader-panel');
+        const readerText = document.getElementById('reader-text');
+        let speechSynthesis = window.speechSynthesis;
+        let currentUtterance = null;
+        
+        document.getElementById('screen-reader').addEventListener('click', function() {
+            readerPanel.style.display = 'block';
+            readPageContent();
+        });
+        
+        document.getElementById('reader-close').addEventListener('click', function() {
+            readerPanel.style.display = 'none';
+            stopReading();
+        });
+        
+        document.getElementById('reader-play').addEventListener('click', readPageContent);
+        document.getElementById('reader-pause').addEventListener('click', pauseReading);
+        document.getElementById('reader-stop').addEventListener('click', stopReading);
+        
+        function readPageContent() {
+            // Pausa se já estiver lendo
+            if (speechSynthesis.speaking) {
+                speechSynthesis.pause();
+            }
+            
+            // Obtém todo o texto principal da página
+            const mainContent = document.querySelector('.container').innerText;
+            readerText.textContent = mainContent;
+            
+            // Configura a fala
+            currentUtterance = new SpeechSynthesisUtterance(mainContent);
+            currentUtterance.lang = 'pt-BR';
+            currentUtterance.rate = 1;
+            currentUtterance.pitch = 1;
+            
+            // Evento quando terminar de ler
+            currentUtterance.onend = function() {
+                readerText.textContent = "Leitura concluída.";
+            };
+            
+            // Inicia a leitura
+            speechSynthesis.speak(currentUtterance);
+        }
+        
+        function pauseReading() {
+            if (speechSynthesis.speaking) {
+                speechSynthesis.pause();
+                readerText.textContent = "Leitura pausada.";
+            }
+        }
+        
+        function stopReading() {
+            speechSynthesis.cancel();
+            readerText.textContent = "Leitura interrompida.";
+        }
+    });
+</script>
+</body>
+</html>
